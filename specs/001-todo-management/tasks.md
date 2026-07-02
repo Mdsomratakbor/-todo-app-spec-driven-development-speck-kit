@@ -28,8 +28,8 @@
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Create .NET 10 solution with Clean Architecture projects (Api, Application, Domain, Infrastructure) in `api/TodoApp.sln`
-- [ ] T002 [P] Initialize Angular 21 project with Angular Material and Bootstrap in `client/`
+- [X] T001 Create .NET 10 solution with Clean Architecture projects (Api, Application, Domain, Infrastructure) in `api/TodoApp.slnx`
+- [X] T002 [P] Initialize Angular 21 project with Angular Material and Bootstrap in `client/`
 - [ ] T003 [P] Add NuGet packages: EF Core (PostgreSQL), Cartographer.Mapper, FluentResponse.ApiWrapper, FluentValidation, Serilog, Scalar.AspNetCore, MediatR to `api/src/TodoApp.Api/TodoApp.Api.csproj`
 - [ ] T004 [P] Add npm packages: @angular/material, @angular/cdk, bootstrap, @playwright/test to `client/package.json`
 - [ ] T005 Configure .editorconfig, .gitignore, and directory structure for `api/` and `client/`
