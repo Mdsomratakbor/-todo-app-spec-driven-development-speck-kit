@@ -1,0 +1,46 @@
+# .NET
+bin/
+obj/
+*.user
+*.suo
+*.dbmdl
+*.jfm
+*.vs/
+*.DotSettings.user
+
+# Node.js / Angular
+node_modules/
+dist/
+tmp/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Angular
+/client/.angular/cache/
+/client/.angular/
+/client/dist/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Environment
+.env
+.env.local
+.env.*.local
+appsettings.Local.json
+appsettings.*.Local.json
+
+# Secrets
+secrets.json
+*.secret.*
