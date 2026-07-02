@@ -30,9 +30,9 @@
 
 - [X] T001 Create .NET 10 solution with Clean Architecture projects (Api, Application, Domain, Infrastructure) in `api/TodoApp.slnx`
 - [X] T002 [P] Initialize Angular 21 project with Angular Material and Bootstrap in `client/`
-- [ ] T003 [P] Add NuGet packages: EF Core (PostgreSQL), Cartographer.Mapper, FluentResponse.ApiWrapper, FluentValidation, Serilog, Scalar.AspNetCore, MediatR to `api/src/TodoApp.Api/TodoApp.Api.csproj`
-- [ ] T004 [P] Add npm packages: @angular/material, @angular/cdk, bootstrap, @playwright/test to `client/package.json`
-- [ ] T005 Configure .editorconfig, .gitignore, and directory structure for `api/` and `client/`
+- [X] T003 [P] Add NuGet packages: EF Core (PostgreSQL), Cartographer.Mapper, FluentResponse.ApiWrapper, FluentValidation, Serilog, Scalar.AspNetCore, MediatR to `api/src/TodoApp.Api/TodoApp.Api.csproj`
+- [X] T004 [P] Add npm packages: @angular/material, @angular/cdk, bootstrap, @playwright/test to `client/package.json`
+- [X] T005 Configure .editorconfig, .gitignore, and directory structure for `api/` and `client/`
 
 ---
 
@@ -42,8 +42,8 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T006 [P] Configure EF Core DbContext with PostgreSQL connection string in `api/src/TodoApp.Infrastructure/Data/AppDbContext.cs`
-- [ ] T007 [P] Implement MediatR pipeline with FluentValidation behavior (ValidationBehavior) in `api/src/TodoApp.Application/Common/Behaviors/ValidationBehavior.cs`
+- [X] T006 [P] Configure EF Core DbContext with PostgreSQL connection string in `api/src/TodoApp.Infrastructure/Data/AppDbContext.cs`
+- [X] T007 [P] Implement MediatR pipeline with FluentValidation behavior (ValidationBehavior) in `api/src/TodoApp.Application/Common/Behaviors/ValidationBehavior.cs`
 - [ ] T008 [P] Configure FluentResponse.ApiWrapper response envelope middleware in `api/src/TodoApp.Api/Program.cs`
 - [ ] T009 [P] Implement global exception handler with ProblemDetails (RFC 7807) in `api/src/TodoApp.Api/Middleware/ExceptionHandlingMiddleware.cs`
 - [ ] T010 [P] Configure Serilog structured logging with correlation ID middleware in `api/src/TodoApp.Api/Middleware/RequestLoggingMiddleware.cs` and `api/src/TodoApp.Api/Program.cs`
