@@ -250,7 +250,7 @@ project methodology.
 ## Operational Standards
 
 **Error Handling Details**:
-- Use `ProblemDetails` middleware registered early in the pipeline
+- Use FluentResponse.ApiWrapper's built-in exception handler (`UseFluentResponseExceptionHandler()`) registered early in the pipeline, which returns ProblemDetails (RFC 7807) formatted responses
 - Map domain exceptions to appropriate HTTP status codes via a custom
   exception-to-problem-details converter
 - Return structured error envelopes with `type`, `title`, `status`, `detail`,

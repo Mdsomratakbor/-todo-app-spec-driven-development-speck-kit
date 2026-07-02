@@ -44,9 +44,9 @@
 
 - [X] T006 [P] Configure EF Core DbContext with PostgreSQL connection string in `api/src/TodoApp.Infrastructure/Data/AppDbContext.cs`
 - [X] T007 [P] Implement MediatR pipeline with FluentValidation behavior (ValidationBehavior) in `api/src/TodoApp.Application/Common/Behaviors/ValidationBehavior.cs`
-- [ ] T008 [P] Configure FluentResponse.ApiWrapper response envelope middleware in `api/src/TodoApp.Api/Program.cs`
-- [ ] T009 [P] Implement global exception handler with ProblemDetails (RFC 7807) in `api/src/TodoApp.Api/Middleware/ExceptionHandlingMiddleware.cs`
-- [ ] T010 [P] Configure Serilog structured logging with correlation ID middleware in `api/src/TodoApp.Api/Middleware/RequestLoggingMiddleware.cs` and `api/src/TodoApp.Api/Program.cs`
+- [X] T008 [P] Configure FluentResponse.ApiWrapper response envelope middleware in `api/src/TodoApp.Api/Program.cs` (includes global exception handling via `UseFluentResponseExceptionHandler()`)
+- [X] T009 [P] Implement global exception handler with ProblemDetails (RFC 7807) in `api/src/TodoApp.Api/Middleware/ExceptionHandlingMiddleware.cs` (covered by FluentResponse.ApiWrapper built-in middleware — no separate file needed)
+- [X] T010 [P] Configure Serilog structured logging with correlation ID middleware in `api/src/TodoApp.Api/Middleware/RequestLoggingMiddleware.cs` and `api/src/TodoApp.Api/Program.cs`
 - [ ] T011 [P] Configure Scalar OpenAPI documentation in `api/src/TodoApp.Api/Program.cs`
 - [ ] T012 [P] Configure JWT Bearer authentication middleware in `api/src/TodoApp.Api/Program.cs`
 - [ ] T013 [P] Configure rate limiting middleware (100 req/min) in `api/src/TodoApp.Api/Middleware/RateLimitingMiddleware.cs`
