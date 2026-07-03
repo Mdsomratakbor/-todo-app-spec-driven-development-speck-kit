@@ -1,5 +1,7 @@
 using FluentResponse.Extensions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Scalar.AspNetCore;
 using Serilog;
 using TodoApp.Api.Middleware;
 using TodoApp.Application;
@@ -30,6 +32,23 @@ try
         options.EnableExecutionTimeTracking = true;
     });
 
+    builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(options =>
+        {
+            options.Authority = builder.Configuration["Jwt:Authority"];
+            options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = builder.Configuration["Jwt:Issuer"],
+                ValidAudience = builder.Configuration["Jwt:Audience"]
+            };
+        });
+
+    builder.Services.AddAuthorization();
+
     builder.Services.AddOpenApi();
 
     var app = builder.Build();
@@ -37,10 +56,13 @@ try
     app.UseMiddleware<RequestLoggingMiddleware>();
     app.UseFluentResponseExceptionHandler();
     app.UseFluentResponseCorrelationId();
+    app.UseAuthentication();
+    app.UseAuthorization();
+    app.UseMiddleware<RateLimitingMiddleware>();
 
     if (app.Environment.IsDevelopment())
     {
-        app.MapOpenApi();
+        app.MapScalarApiReference();
     }
 
     app.Run();

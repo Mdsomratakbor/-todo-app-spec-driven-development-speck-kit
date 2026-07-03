@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using TodoApp.Domain.Entities;
+using TodoApp.Infrastructure.Data.EntityConfigurations;
 
 namespace TodoApp.Infrastructure.Data;
 
@@ -8,8 +10,18 @@ public class AppDbContext : DbContext
     {
     }
 
+    public DbSet<TodoItem> TodoItems => Set<TodoItem>();
+    public DbSet<Category> Categories => Set<Category>();
+    public DbSet<Priority> Priorities => Set<Priority>();
+    public DbSet<Status> Statuses => Set<Status>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
+        modelBuilder.ApplyConfiguration(new TodoItemConfiguration());
+        modelBuilder.ApplyConfiguration(new CategoryConfiguration());
+
+        SeedData.Seed(modelBuilder);
     }
 }
