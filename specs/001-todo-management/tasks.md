@@ -47,12 +47,12 @@
 - [X] T008 [P] Configure FluentResponse.ApiWrapper response envelope middleware in `api/src/TodoApp.Api/Program.cs` (includes global exception handling via `UseFluentResponseExceptionHandler()`)
 - [X] T009 [P] Implement global exception handler with ProblemDetails (RFC 7807) in `api/src/TodoApp.Api/Middleware/ExceptionHandlingMiddleware.cs` (covered by FluentResponse.ApiWrapper built-in middleware — no separate file needed)
 - [X] T010 [P] Configure Serilog structured logging with correlation ID middleware in `api/src/TodoApp.Api/Middleware/RequestLoggingMiddleware.cs` and `api/src/TodoApp.Api/Program.cs`
-- [ ] T011 [P] Configure Scalar OpenAPI documentation in `api/src/TodoApp.Api/Program.cs`
-- [ ] T012 [P] Configure JWT Bearer authentication middleware in `api/src/TodoApp.Api/Program.cs`
-- [ ] T013 [P] Configure rate limiting middleware (100 req/min) in `api/src/TodoApp.Api/Middleware/RateLimitingMiddleware.cs`
-- [ ] T014 [P] Create domain entities (TodoItem, Category) and enums (Priority, Status) in `api/src/TodoApp.Domain/Entities/` and `api/src/TodoApp.Domain/Enums/`
-- [ ] T015 [P] Create EF Core entity configurations and seed data (priorities, statuses, Uncategorized category) in `api/src/TodoApp.Infrastructure/Data/EntityConfigurations/` and `api/src/TodoApp.Infrastructure/Data/SeedData.cs`
-- [ ] T016 Create and apply initial database migration in `api/src/TodoApp.Infrastructure/Migrations/`
+- [X] T011 [P] Configure Scalar OpenAPI documentation in `api/src/TodoApp.Api/Program.cs`
+- [X] T012 [P] Configure JWT Bearer authentication middleware in `api/src/TodoApp.Api/Program.cs`
+- [X] T013 [P] Configure rate limiting middleware (100 req/min) in `api/src/TodoApp.Api/Middleware/RateLimitingMiddleware.cs`
+- [X] T014 [P] Create domain entities (TodoItem, Category) and enums (Priority, Status) in `api/src/TodoApp.Domain/Entities/` and `api/src/TodoApp.Domain/Enums/`
+- [X] T015 [P] Create EF Core entity configurations and seed data (priorities, statuses, Uncategorized category) in `api/src/TodoApp.Infrastructure/Data/EntityConfigurations/` and `api/src/TodoApp.Infrastructure/Data/SeedData.cs`
+- [X] T016 Create and apply initial database migration in `api/src/TodoApp.Infrastructure/Migrations/`
 
 **Checkpoint**: Foundation ready — user story implementation can now begin in parallel
 
