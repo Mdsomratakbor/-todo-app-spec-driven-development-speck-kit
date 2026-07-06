@@ -68,33 +68,33 @@
 
 > **NOTE**: Write these tests FIRST, ensure they FAIL before implementation
 
-- [ ] T017 [P] [US1] Unit test for CreateTodoCommandHandler in `api/tests/TodoApp.UnitTests/Application/Todos/CreateTodoCommandHandlerTests.cs`
-- [ ] T018 [P] [US1] Unit test for UpdateTodoCommandHandler in `api/tests/TodoApp.UnitTests/Application/Todos/UpdateTodoCommandHandlerTests.cs`
-- [ ] T019 [P] [US1] Unit test for GetTodoListQueryHandler in `api/tests/TodoApp.UnitTests/Application/Todos/GetTodoListQueryHandlerTests.cs`
-- [ ] T020 [P] [US1] Integration test for todo endpoints (CRUD) in `api/tests/TodoApp.IntegrationTests/Api/TodoEndpointsTests.cs`
+- [X] T017 [P] [US1] Unit test for CreateTodoCommandHandler in `api/tests/TodoApp.UnitTests/Application/Todos/CreateTodoCommandHandlerTests.cs`
+- [X] T018 [P] [US1] Unit test for UpdateTodoCommandHandler in `api/tests/TodoApp.UnitTests/Application/Todos/UpdateTodoCommandHandlerTests.cs`
+- [X] T019 [P] [US1] Unit test for GetTodoListQueryHandler in `api/tests/TodoApp.UnitTests/Application/Todos/GetTodoListQueryHandlerTests.cs`
+- [X] T020 [P] [US1] Integration test for todo endpoints (CRUD) in `api/tests/TodoApp.IntegrationTests/Api/TodoEndpointsTests.cs`
 - [ ] T021 [P] [US1] Component tests for TodoListComponent, TodoFormComponent in `client/src/app/features/todos/`
 
 ### Implementation for User Story 1
 
-- [ ] T022 [P] [US1] Create ITodoRepository interface in `api/src/TodoApp.Application/Common/Interfaces/ITodoRepository.cs`
-- [ ] T023 [P] [US1] Implement TodoRepository in `api/src/TodoApp.Infrastructure/Repositories/TodoRepository.cs`
-- [ ] T024 [US1] Create Cartographer.Mapper TodoMappingProfile in `api/src/TodoApp.Application/Common/Mappings/TodoMappingProfile.cs`
-- [ ] T025 [P] [US1] Create CreateTodo command, handler, and validator in `api/src/TodoApp.Application/Todos/Commands/CreateTodo/`
-- [ ] T026 [P] [US1] Create UpdateTodo command, handler, and validator in `api/src/TodoApp.Application/Todos/Commands/UpdateTodo/`
-- [ ] T027 [P] [US1] Create DeleteTodo command and handler in `api/src/TodoApp.Application/Todos/Commands/DeleteTodo/`
-- [ ] T028 [P] [US1] Create GetTodoList query and handler in `api/src/TodoApp.Application/Todos/Queries/GetTodoList/`
-- [ ] T029 [P] [US1] Create GetTodoById query and handler in `api/src/TodoApp.Application/Todos/Queries/GetTodoById/`
-- [ ] T030 [US1] Implement TodosController with all 5 endpoints in `api/src/TodoApp.Api/Controllers/TodosController.cs`
-- [ ] T031 [P] [US1] Create Angular request/response models in `client/src/app/shared/models/todo.model.ts`, `category.model.ts`, `priority.model.ts`, `status.model.ts`, `paginated-response.model.ts`
-- [ ] T032 [P] [US1] Create TodoService (HttpClient wrapper) in `client/src/app/shared/services/todo.service.ts`
-- [ ] T033 [P] [US1] Create NotificationService (MatSnackBar wrapper) in `client/src/app/shared/services/notification.service.ts`
-- [ ] T034 [P] [US1] Create shared validators (required, maxLength, hexColor, futureDate) in `client/src/app/shared/validators/`
-- [ ] T035 [P] [US1] Create shared components: LoadingSpinner, EmptyState, ConfirmDialog in `client/src/app/shared/components/`
-- [ ] T036 [P] [US1] Create TodoFormComponent (dumb, with Angular Reactive Forms validation) in `client/src/app/features/todos/todo-form/`
-- [ ] T037 [P] [US1] Create TodoCardComponent (dumb, status/priority badges, category chip) in `client/src/app/features/todos/todo-card/`
-- [ ] T038 [P] [US1] Create TodoListComponent (smart, stateful with pagination) in `client/src/app/features/todos/todo-list/`
-- [ ] T039 [P] [US1] Create TodoDetailComponent (smart, loads single todo) in `client/src/app/features/todos/todo-detail/`
-- [ ] T040 [US1] Wire up Angular routing, navigation, and app module registration in `client/src/app/app-routes.ts` and `client/src/app/app.module.ts`
+- [X] T022 [P] [US1] Create ITodoRepository interface in `api/src/TodoApp.Application/Common/Interfaces/ITodoRepository.cs`
+- [X] T023 [P] [US1] Implement TodoRepository in `api/src/TodoApp.Infrastructure/Repositories/TodoRepository.cs`
+- [X] T024 [US1] Create Cartographer.Mapper TodoMappingProfile in `api/src/TodoApp.Application/Common/Mappings/TodoMappingProfile.cs`
+- [X] T025 [P] [US1] Create CreateTodo command, handler, and validator in `api/src/TodoApp.Application/Todos/Commands/CreateTodo/`
+- [X] T026 [P] [US1] Create UpdateTodo command, handler, and validator in `api/src/TodoApp.Application/Todos/Commands/UpdateTodo/`
+- [X] T027 [P] [US1] Create DeleteTodo command and handler in `api/src/TodoApp.Application/Todos/Commands/DeleteTodo/`
+- [X] T028 [P] [US1] Create GetTodoList query and handler in `api/src/TodoApp.Application/Todos/Queries/GetTodoList/`
+- [X] T029 [P] [US1] Create GetTodoById query and handler in `api/src/TodoApp.Application/Todos/Queries/GetTodoById/`
+- [X] T030 [US1] Implement TodosController with all 5 endpoints in `api/src/TodoApp.Api/Controllers/TodosController.cs`
+- [X] T031 [P] [US1] Create Angular request/response models in `client/src/app/shared/models/todo.model.ts`, `category.model.ts`, `priority.model.ts`, `status.model.ts`, `paginated-response.model.ts`
+- [X] T032 [P] [US1] Create TodoService (HttpClient wrapper) in `client/src/app/shared/services/todo.service.ts`
+- [X] T033 [P] [US1] Create NotificationService (MatSnackBar wrapper) in `client/src/app/shared/services/notification.service.ts`
+- [X] T034 [P] [US1] Create shared validators (required, maxLength, hexColor, futureDate) in `client/src/app/shared/validators/`
+- [X] T035 [P] [US1] Create shared components: LoadingSpinner, EmptyState, ConfirmDialog in `client/src/app/shared/components/`
+- [X] T036 [P] [US1] Create TodoFormComponent (dumb, with Angular Reactive Forms validation) in `client/src/app/features/todos/todo-form/`
+- [X] T037 [P] [US1] Create TodoCardComponent (dumb, status/priority badges, category chip) in `client/src/app/features/todos/todo-card/`
+- [X] T038 [P] [US1] Create TodoListComponent (smart, stateful with pagination) in `client/src/app/features/todos/todo-list/`
+- [X] T039 [P] [US1] Create TodoDetailComponent (smart, loads single todo) in `client/src/app/features/todos/todo-detail/`
+- [X] T040 [US1] Wire up Angular routing, navigation, and app module registration in `client/src/app/app-routes.ts` and `client/src/app/app.config.ts`
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 
@@ -110,27 +110,27 @@
 
 > **NOTE**: Write these tests FIRST, ensure they FAIL before implementation
 
-- [ ] T041 [P] [US2] Unit test for CreateCategoryCommandHandler in `api/tests/TodoApp.UnitTests/Application/Categories/CreateCategoryCommandHandlerTests.cs`
-- [ ] T042 [P] [US2] Unit test for DeleteCategoryCommandHandler (reassignment logic) in `api/tests/TodoApp.UnitTests/Application/Categories/DeleteCategoryCommandHandlerTests.cs`
-- [ ] T043 [P] [US2] Integration test for category endpoints in `api/tests/TodoApp.IntegrationTests/Api/CategoryEndpointsTests.cs`
-- [ ] T044 [US2] Component tests for CategoryListComponent, CategoryFormComponent in `client/src/app/features/categories/`
+- [X] T041 [P] [US2] Unit test for CreateCategoryCommandHandler in `api/tests/TodoApp.UnitTests/Application/Categories/CreateCategoryCommandHandlerTests.cs`
+- [X] T042 [P] [US2] Unit test for DeleteCategoryCommandHandler (reassignment logic) in `api/tests/TodoApp.UnitTests/Application/Categories/DeleteCategoryCommandHandlerTests.cs`
+- [X] T043 [P] [US2] Integration test for category endpoints in `api/tests/TodoApp.IntegrationTests/Api/CategoryEndpointsTests.cs`
+- [X] T044 [US2] Component tests for CategoryListComponent, CategoryFormComponent in `client/src/app/features/categories/`
 
 ### Implementation for User Story 2
 
-- [ ] T045 [P] [US2] Create ICategoryRepository interface in `api/src/TodoApp.Application/Common/Interfaces/ICategoryRepository.cs`
-- [ ] T046 [P] [US2] Implement CategoryRepository in `api/src/TodoApp.Infrastructure/Repositories/CategoryRepository.cs`
-- [ ] T047 [P] [US2] Create Cartographer.Mapper CategoryMappingProfile in `api/src/TodoApp.Application/Common/Mappings/CategoryMappingProfile.cs`
-- [ ] T048 [P] [US2] Create CreateCategory command, handler, and validator in `api/src/TodoApp.Application/Categories/Commands/CreateCategory/`
-- [ ] T049 [P] [US2] Create UpdateCategory command, handler, and validator in `api/src/TodoApp.Application/Categories/Commands/UpdateCategory/`
-- [ ] T050 [P] [US2] Create DeleteCategory command and handler (with todo reassignment logic) in `api/src/TodoApp.Application/Categories/Commands/DeleteCategory/`
-- [ ] T051 [P] [US2] Create GetCategoryList query and handler in `api/src/TodoApp.Application/Categories/Queries/GetCategoryList/`
-- [ ] T052 [US2] Implement CategoriesController with all 4 endpoints in `api/src/TodoApp.Api/Controllers/CategoriesController.cs`
-- [ ] T053 [P] [US2] Create CategoryService in `client/src/app/shared/services/category.service.ts`
-- [ ] T054 [P] [US2] Create CategoryCardComponent (dumb) in `client/src/app/features/categories/category-card/`
-- [ ] T055 [P] [US2] Create CategoryFormComponent (dumb, with validation) in `client/src/app/features/categories/category-form/`
-- [ ] T056 [P] [US2] Create CategoryListComponent (smart) in `client/src/app/features/categories/category-list/`
-- [ ] T057 [US2] Integrate category selector dropdown into TodoFormComponent (reuse CategoryService) in `client/src/app/features/todos/todo-form/`
-- [ ] T058 [US2] Wire up category management routes and navigation in `client/src/app/app-routes.ts`
+- [X] T045 [P] [US2] Create ICategoryRepository interface in `api/src/TodoApp.Application/Common/Interfaces/ICategoryRepository.cs`
+- [X] T046 [P] [US2] Implement CategoryRepository in `api/src/TodoApp.Infrastructure/Repositories/CategoryRepository.cs`
+- [X] T047 [P] [US2] Create Cartographer.Mapper CategoryMappingProfile in `api/src/TodoApp.Application/Common/Mappings/CategoryMappingProfile.cs`
+- [X] T048 [P] [US2] Create CreateCategory command, handler, and validator in `api/src/TodoApp.Application/Categories/Commands/CreateCategory/`
+- [X] T049 [P] [US2] Create UpdateCategory command, handler, and validator in `api/src/TodoApp.Application/Categories/Commands/UpdateCategory/`
+- [X] T050 [P] [US2] Create DeleteCategory command and handler (with todo reassignment logic) in `api/src/TodoApp.Application/Categories/Commands/DeleteCategory/`
+- [X] T051 [P] [US2] Create GetCategoryList query and handler in `api/src/TodoApp.Application/Categories/Queries/GetCategoryList/`
+- [X] T052 [US2] Implement CategoriesController with all 4 endpoints in `api/src/TodoApp.Api/Controllers/CategoriesController.cs`
+- [X] T053 [P] [US2] Create CategoryService in `client/src/app/shared/services/category.service.ts`
+- [X] T054 [P] [US2] Create CategoryCardComponent (dumb) in `client/src/app/features/categories/category-card/`
+- [X] T055 [P] [US2] Create CategoryFormComponent (dumb, with validation) in `client/src/app/features/categories/category-form/`
+- [X] T056 [P] [US2] Create CategoryListComponent (smart) in `client/src/app/features/categories/category-list/`
+- [X] T057 [US2] Integrate category selector dropdown into TodoFormComponent (reuse CategoryService) in `client/src/app/features/todos/todo-form/`
+- [X] T058 [US2] Wire up category management routes and navigation in `client/src/app/app-routes.ts`
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently
 
@@ -146,16 +146,16 @@
 
 > **NOTE**: Write these tests FIRST, ensure they FAIL before implementation
 
-- [ ] T059 [P] [US3] Integration test for filtering + search query parameters in `api/tests/TodoApp.IntegrationTests/Api/TodoEndpointsTests.cs`
-- [ ] T060 [US3] Component tests for FilterBarComponent in `client/src/app/features/todos/filter-bar/`
+- [X] T059 [P] [US3] Integration test for filtering + search query parameters in `api/tests/TodoApp.IntegrationTests/Api/TodoEndpointsTests.cs`
+- [X] T060 [US3] Component tests for FilterBarComponent in `client/src/app/features/todos/filter-bar/`
 
 ### Implementation for User Story 3
 
-- [ ] T061 [P] [US3] Add filtering and search query parameters to GetTodoListQuery in `api/src/TodoApp.Application/Todos/Queries/GetTodoList/GetTodoListQuery.cs`
-- [ ] T062 [US3] Implement filtering logic (statusId, priorityId, categoryId, dueDateFrom, dueDateTo) and text search (ILike on Title/Description) in GetTodoListQueryHandler at `api/src/TodoApp.Application/Todos/Queries/GetTodoList/GetTodoListQueryHandler.cs`
-- [ ] T063 [P] [US3] Create FilterBarComponent (dumb, dropdowns + date picker + search input) in `client/src/app/features/todos/filter-bar/`
-- [ ] T064 [US3] Integrate FilterBarComponent with TodoListComponent (pass filter values to GetTodoListQuery) in `client/src/app/features/todos/todo-list/`
-- [ ] T065 [US3] Implement clear-filters functionality (resets all filters, reloads full list) in `client/src/app/features/todos/todo-list/`
+- [X] T061 [P] [US3] Add filtering and search query parameters to GetTodoListQuery in `api/src/TodoApp.Application/Todos/Queries/GetTodoList/GetTodoListQuery.cs`
+- [X] T062 [US3] Implement filtering logic (statusId, priorityId, categoryId, dueDateFrom, dueDateTo) and text search (ILike on Title/Description) in GetTodoListQueryHandler at `api/src/TodoApp.Application/Todos/Queries/GetTodoList/GetTodoListQueryHandler.cs`
+- [X] T063 [P] [US3] Create FilterBarComponent (dumb, dropdowns + date picker + search input) in `client/src/app/features/todos/filter-bar/`
+- [X] T064 [US3] Integrate FilterBarComponent with TodoListComponent (pass filter values to GetTodoListQuery) in `client/src/app/features/todos/todo-list/`
+- [X] T065 [US3] Implement clear-filters functionality (resets all filters, reloads full list) in `client/src/app/features/todos/todo-list/`
 
 **Checkpoint**: All user stories should now be independently functional
 

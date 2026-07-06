@@ -5,6 +5,7 @@ using Scalar.AspNetCore;
 using Serilog;
 using TodoApp.Api.Middleware;
 using TodoApp.Application;
+using TodoApp.Infrastructure;
 using TodoApp.Infrastructure.Data;
 
 Log.Logger = new LoggerConfiguration()
@@ -21,9 +22,12 @@ try
     builder.Host.UseSerilog();
 
     builder.Services.AddApplication();
+    builder.Services.AddInfrastructure();
 
     builder.Services.AddDbContext<AppDbContext>(options =>
         options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+    builder.Services.AddControllers();
 
     builder.Services.AddFluentResponse(options =>
     {
@@ -54,11 +58,13 @@ try
     var app = builder.Build();
 
     app.UseMiddleware<RequestLoggingMiddleware>();
+    app.UseMiddleware<ExceptionMappingMiddleware>();
     app.UseFluentResponseExceptionHandler();
     app.UseFluentResponseCorrelationId();
     app.UseAuthentication();
     app.UseAuthorization();
     app.UseMiddleware<RateLimitingMiddleware>();
+    app.MapControllers();
 
     if (app.Environment.IsDevelopment())
     {
