@@ -11,7 +11,7 @@ import { TodoItem } from '../../../shared/models/todo.model';
   standalone: true,
   imports: [DatePipe, MatCard, MatCardHeader, MatCardTitle, MatCardSubtitle, MatCardContent, MatCardActions, MatChip, MatButton, MatIcon],
   template: `
-    <mat-card class="todo-card" [class.overdue]="isOverdue()">
+    <mat-card class="todo-card" [class.overdue]="isOverdue()" role="article">
       <mat-card-header>
         <mat-card-title>{{ todo().title }}</mat-card-title>
         <mat-card-subtitle>

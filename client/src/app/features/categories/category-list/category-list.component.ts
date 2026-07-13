@@ -15,7 +15,7 @@ import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialo
   standalone: true,
   imports: [MatButton, CategoryCardComponent, CategoryFormComponent, LoadingSpinnerComponent, EmptyStateComponent],
   template: `
-    <div class="category-list-container">
+    <div class="category-list-container" role="region" aria-label="Category list">
       <div class="header">
         <h1>Categories</h1>
         <button mat-raised-button color="primary" (click)="showCreateForm()">

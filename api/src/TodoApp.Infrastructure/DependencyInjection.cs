@@ -1,6 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using TodoApp.Application.Common.Interfaces;
 using TodoApp.Infrastructure.Repositories;
+using TodoApp.Infrastructure.Services;
 
 namespace TodoApp.Infrastructure;
 
@@ -10,6 +11,8 @@ public static class DependencyInjection
     {
         services.AddScoped<ITodoRepository, TodoRepository>();
         services.AddScoped<ICategoryRepository, CategoryRepository>();
+        services.AddScoped<ILunchPreferenceRepository, LunchPreferenceRepository>();
+        services.AddHostedService<TodoCleanupService>();
         return services;
     }
 }

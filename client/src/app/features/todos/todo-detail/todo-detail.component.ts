@@ -21,7 +21,7 @@ import { LoadingSpinnerComponent } from '../../../shared/components/loading-spin
       </button>
 
       @if (loading()) {
-        <app-loading-spinner message="Loading todo..." />
+        <app-loading-spinner message="Loading todo..." role="status" aria-live="polite" />
       } @else if (todo()) {
         <mat-card>
           <mat-card-header>

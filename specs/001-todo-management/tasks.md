@@ -165,15 +165,15 @@
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T066 [P] Implement soft-delete cleanup background service (30-day hard-delete) in `api/src/TodoApp.Infrastructure/Services/TodoCleanupService.cs`
-- [ ] T067 [P] Add performance logging behavior (log queries exceeding 100ms) in `api/src/TodoApp.Application/Common/Behaviors/PerformanceBehavior.cs`
-- [ ] T068 [P] Add UI polish: loading skeletons for todo list, transitions, empty-state illustrations in `client/src/app/shared/components/`
-- [ ] T069 [P] Create E2E tests for todo CRUD flow in `client/e2e/todo-crud.spec.ts`
-- [ ] T070 [P] Create E2E tests for category management in `client/e2e/category-management.spec.ts`
-- [ ] T071 [P] Create E2E tests for search and filter in `client/e2e/search-filter.spec.ts`
-- [ ] T072 Add WCAG 2.1 AA accessibility attributes (labels, aria, keyboard nav) across all components
-- [ ] T073 Run quickstart.md validation scenarios end-to-end
-- [ ] T074 Code cleanup, final review, and README update
+- [X] T066 [P] Implement soft-delete cleanup background service (30-day hard-delete) in `api/src/TodoApp.Infrastructure/Services/TodoCleanupService.cs`
+- [X] T067 [P] Add performance logging behavior (log queries exceeding 100ms) in `api/src/TodoApp.Application/Common/Behaviors/PerformanceBehavior.cs`
+- [X] T068 [P] Add UI polish: loading skeletons for todo list, transitions, empty-state illustrations in `client/src/app/shared/components/`
+- [X] T069 [P] Create E2E tests for todo CRUD flow in `client/e2e/todo-crud.spec.ts`
+- [X] T070 [P] Create E2E tests for category management in `client/e2e/category-management.spec.ts`
+- [X] T071 [P] Create E2E tests for search and filter in `client/e2e/search-filter.spec.ts`
+- [X] T072 Add WCAG 2.1 AA accessibility attributes (labels, aria, keyboard nav) across all components
+- [X] T073 Run quickstart.md validation scenarios end-to-end
+- [X] T074 Code cleanup, final review, and README update
 
 ---
 

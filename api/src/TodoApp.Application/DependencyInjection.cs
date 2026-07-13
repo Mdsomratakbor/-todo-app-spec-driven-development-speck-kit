@@ -4,6 +4,8 @@ using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using TodoApp.Application.Common.Behaviors;
+using TodoApp.Application.LunchPreferences.Commands.CreateOrUpdateLunchPreference;
+using TodoApp.Application.LunchPreferences.Dtos;
 using TodoApp.Application.Todos.Dtos;
 using TodoApp.Domain.Entities;
 
@@ -17,6 +19,7 @@ public static class DependencyInjection
         {
             cfg.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
             cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(PerformanceBehavior<,>));
         });
 
         services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly);
@@ -47,6 +50,17 @@ public static class DependencyInjection
                 .ForMember(dest => dest.Priority, opt => opt.Ignore())
                 .ForMember(dest => dest.Status, opt => opt.Ignore())
                 .ForMember(dest => dest.Category, opt => opt.Ignore());
+
+            cfg.CreateMap<LunchPreference, LunchPreferenceResponse>();
+            cfg.CreateMap<UpdateLunchPreferenceRequest, LunchPreference>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.UserId, opt => opt.Ignore())
+                .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())
+                .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore());
+            cfg.CreateMap<CreateOrUpdateLunchPreferenceCommand, LunchPreference>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())
+                .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore());
         });
 
         return services;

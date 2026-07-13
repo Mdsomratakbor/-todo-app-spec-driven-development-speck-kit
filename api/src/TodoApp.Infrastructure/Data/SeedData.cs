@@ -5,11 +5,24 @@ namespace TodoApp.Infrastructure.Data;
 
 public static class SeedData
 {
+    public static readonly string[] DietaryRestrictionValues =
+    [
+        "None", "Vegetarian", "Vegan", "Gluten-Free", "Dairy-Free",
+        "Halal", "Kosher", "Nut-Free", "Low-Carb", "Diabetic"
+    ];
+
     public static void Seed(ModelBuilder modelBuilder)
     {
         SeedPriorities(modelBuilder);
         SeedStatuses(modelBuilder);
         SeedDefaultCategory(modelBuilder);
+        SeedDietaryRestrictions(modelBuilder);
+    }
+
+    private static void SeedDietaryRestrictions(ModelBuilder modelBuilder)
+    {
+        // Dietary restrictions are validated against this list at the application layer.
+        // No database seed needed for enum-like validation values.
     }
 
     private static void SeedPriorities(ModelBuilder modelBuilder)

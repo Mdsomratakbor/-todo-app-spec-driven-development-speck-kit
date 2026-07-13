@@ -16,7 +16,7 @@ import { futureDateValidator } from '../../../shared/validators/future-date.vali
   standalone: true,
   imports: [ReactiveFormsModule, MatButton, MatFormField, MatLabel, MatError, MatInput, MatSelect, MatOption, MatDatepickerModule],
   template: `
-    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="todo-form">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="todo-form" aria-label="Todo form">
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Title</mat-label>
         <input matInput formControlName="title" placeholder="Enter todo title" />

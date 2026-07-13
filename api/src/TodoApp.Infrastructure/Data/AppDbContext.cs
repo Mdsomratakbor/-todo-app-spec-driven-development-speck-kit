@@ -14,6 +14,7 @@ public class AppDbContext : DbContext
     public DbSet<Category> Categories => Set<Category>();
     public DbSet<Priority> Priorities => Set<Priority>();
     public DbSet<Status> Statuses => Set<Status>();
+    public DbSet<LunchPreference> LunchPreferences => Set<LunchPreference>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -21,6 +22,7 @@ public class AppDbContext : DbContext
 
         modelBuilder.ApplyConfiguration(new TodoItemConfiguration());
         modelBuilder.ApplyConfiguration(new CategoryConfiguration());
+        modelBuilder.ApplyConfiguration(new LunchPreferenceConfiguration());
 
         SeedData.Seed(modelBuilder);
     }

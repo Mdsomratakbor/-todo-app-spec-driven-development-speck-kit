@@ -18,7 +18,7 @@ import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialo
   standalone: true,
   imports: [AsyncPipe, MatPaginator, MatButton, TodoCardComponent, TodoFormComponent, FilterBarComponent, LoadingSpinnerComponent, EmptyStateComponent],
   template: `
-    <div class="todo-list-container">
+    <div class="todo-list-container" role="region" aria-label="Todo list">
       <div class="header">
         <h1>Todo List</h1>
         <button mat-raised-button color="primary" (click)="showCreateForm()">
@@ -37,7 +37,7 @@ import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialo
       }
 
       @if (loading()) {
-        <app-loading-spinner message="Loading todos..." />
+        <app-loading-spinner [skeleton]="true" message="Loading todos..." />
       } @else if (todos().length === 0) {
         <app-empty-state
           icon="checklist"
@@ -64,6 +64,7 @@ import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialo
           (page)="onPageChange($event)"
           [pageSizeOptions]="[10, 20, 50]"
           showFirstLastButtons
+          aria-label="Todo pagination"
         />
       }
     </div>
@@ -72,6 +73,11 @@ import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialo
     .todo-list-container { padding: 1rem; max-width: 900px; margin: 0 auto; }
     .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
     .todo-grid { display: grid; gap: 1rem; }
+    .todo-grid > * { animation: fadeSlideIn 0.3s ease-out; }
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   `]
 })
 export class TodoListComponent implements OnInit {
