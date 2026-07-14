@@ -1,7 +1,7 @@
 <!-- SPECKIT START -->
 For additional context about technologies to be used, project structure,
 shell commands, and other important information, read the current plan
-at specs/002-lunch-setting/plan.md.
+at specs/003-basic-auth/plan.md.
 
 ## Session Summary (2026-07-06)
 
@@ -46,4 +46,28 @@ at specs/002-lunch-setting/plan.md.
 - Reset sets: lunch window 12:00-13:00, 60min break, notifications enabled, empty lists
 - Duplicate detection uses case-insensitive HashSet comparison
 - EF migration at `Data/Migrations/20260706172927_AddLunchPreferences.cs`
+
+## Session Summary (2026-07-15)
+
+### Done
+- **003-basic-auth: Specification and Plan Complete**
+  - Feature spec: `specs/003-basic-auth/spec.md`
+  - Implementation plan: `specs/003-basic-auth/plan.md`
+  - Research: `specs/003-basic-auth/research.md`
+  - Data model: `specs/003-basic-auth/data-model.md`
+  - API contracts: `specs/003-basic-auth/contracts/auth-api.md`
+  - Quickstart guide: `specs/003-basic-auth/quickstart.md`
+  - Quality checklist: `specs/003-basic-auth/checklists/requirements.md` (16/16 passing)
+  - 5 clarifications resolved: rate limiting, token rotation, logout scope, error messages, JWT claims
+  - 50 implementation tasks defined across 8 phases
+
+### Key Context
+- User entity: Id, Email, HashedPassword, Role, CreatedAt, UpdatedAt
+- RefreshToken entity: Id, UserId, TokenHash, ExpiresAt, RevokedAt, CreatedAt
+- Password hashing: BCrypt.Net with cost factor 12
+- JWT claims: User ID, Email, Role
+- Refresh tokens: Opaque, stored as SHA256 hashes, 7-day expiry, strict rotation
+- Logout: Revokes only current session's refresh token
+- Rate limiting: 100 req/min per IP on auth endpoints
+- Error messages: Distinct for expired vs. missing tokens
 <!-- SPECKIT END -->
