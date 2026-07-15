@@ -1,0 +1,32 @@
+schema_version: "1.0"
+
+extension:
+  id: speckit
+  name: "Spec Kit Core"
+  version: "1.0.0"
+  description: "Core speckit commands for quality gates and validation"
+  author: spec-kit-core
+  repository: https://github.com/github/spec-kit
+  license: MIT
+
+requires:
+  speckit_version: ">=0.2.0"
+
+provides:
+  commands:
+    - name: speckit.gate3
+      file: commands/speckit.gate3.md
+      description: "Run implementation quality gate with auto-fix and retry (max 3 attempts)"
+
+hooks:
+  after_implement:
+    command: speckit.gate3
+    enabled: true
+    optional: false
+    priority: 10
+    description: "Auto-validate, fix, and retry after every phase/task completion"
+
+tags:
+  - "core"
+  - "quality"
+  - "gates"

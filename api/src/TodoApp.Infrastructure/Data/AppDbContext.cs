@@ -15,6 +15,8 @@ public class AppDbContext : DbContext
     public DbSet<Priority> Priorities => Set<Priority>();
     public DbSet<Status> Statuses => Set<Status>();
     public DbSet<LunchPreference> LunchPreferences => Set<LunchPreference>();
+    public DbSet<User> Users => Set<User>();
+    public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -23,6 +25,8 @@ public class AppDbContext : DbContext
         modelBuilder.ApplyConfiguration(new TodoItemConfiguration());
         modelBuilder.ApplyConfiguration(new CategoryConfiguration());
         modelBuilder.ApplyConfiguration(new LunchPreferenceConfiguration());
+        modelBuilder.ApplyConfiguration(new UserConfiguration());
+        modelBuilder.ApplyConfiguration(new RefreshTokenConfiguration());
 
         SeedData.Seed(modelBuilder);
     }

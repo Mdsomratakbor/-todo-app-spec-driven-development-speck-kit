@@ -19,6 +19,18 @@ public class ExceptionMappingMiddleware
         {
             await _next(context);
         }
+        catch (UnauthorizedException ex)
+        {
+            context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            context.Response.ContentType = "application/problem+json";
+            await context.Response.WriteAsync(JsonSerializer.Serialize(new
+            {
+                type = "https://tools.ietf.org/html/rfc7235#section-3.1",
+                title = "Unauthorized",
+                status = 401,
+                detail = ex.Message,
+            }));
+        }
         catch (ConflictException ex)
         {
             context.Response.StatusCode = (int)HttpStatusCode.Conflict;

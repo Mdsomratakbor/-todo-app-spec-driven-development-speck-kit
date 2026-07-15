@@ -10,27 +10,27 @@
 
 ## Phase 1: Setup
 
-- [ ] T001 Add BCrypt.Net-Next package to `api/src/TodoApp.Application/TodoApp.Application.csproj`
-- [ ] T002 [P] Create User entity in `api/src/TodoApp.Domain/Entities/User.cs`
-- [ ] T003 [P] Create RefreshToken entity in `api/src/TodoApp.Domain/Entities/RefreshToken.cs`
-- [ ] T004 [P] Create IUserRepository interface in `api/src/TodoApp.Application/Common/Interfaces/IUserRepository.cs`
-- [ ] T004 [P] Create IRefreshTokenRepository interface in `api/src/TodoApp.Application/Common/Interfaces/IRefreshTokenRepository.cs`
+- [x] T001 Add BCrypt.Net-Next package to `api/src/TodoApp.Application/TodoApp.Application.csproj`
+- [x] T002 [P] Create User entity in `api/src/TodoApp.Domain/Entities/User.cs`
+- [x] T003 [P] Create RefreshToken entity in `api/src/TodoApp.Domain/Entities/RefreshToken.cs`
+- [x] T004 [P] Create IUserRepository interface in `api/src/TodoApp.Application/Common/Interfaces/IUserRepository.cs`
+- [x] T004 [P] Create IRefreshTokenRepository interface in `api/src/TodoApp.Application/Common/Interfaces/IRefreshTokenRepository.cs`
 
 ---
 
 ## Phase 2: Foundational
 
-- [ ] T005 [P] Create UserConfiguration in `api/src/TodoApp.Infrastructure/Data/EntityConfigurations/UserConfiguration.cs`
-- [ ] T005 [P] Create RefreshTokenConfiguration in `api/src/TodoApp.Infrastructure/Data/EntityConfigurations/RefreshTokenConfiguration.cs`
-- [ ] T006 Update AppDbContext in `api/src/TodoApp.Infrastructure/Data/AppDbContext.cs`
-- [ ] T007 [P] Create UserRepository in `api/src/TodoApp.Infrastructure/Repositories/UserRepository.cs`
-- [ ] T007 [P] Create RefreshTokenRepository in `api/src/TodoApp.Infrastructure/Repositories/RefreshTokenRepository.cs`
-- [ ] T008 Register DI services in `api/src/TodoApp.Infrastructure/DependencyInjection.cs`
-- [ ] T009 Create IJwtTokenService interface in `api/src/TodoApp.Infrastructure/Services/IJwtTokenService.cs`
-- [ ] T009 Create JwtTokenService implementation in `api/src/TodoApp.Infrastructure/Services/JwtTokenService.cs`
-- [ ] T010 Configure JWT authentication in `api/src/TodoApp.Api/Program.cs`
-- [ ] T011 Create EF Core migration (AddAuthentication)
-- [ ] T012 Update ExceptionMapping middleware in `api/src/TodoApp.Api/Middleware/ExceptionMappingMiddleware.cs`
+- [x] T005 [P] Create UserConfiguration in `api/src/TodoApp.Infrastructure/Data/EntityConfigurations/UserConfiguration.cs`
+- [x] T005 [P] Create RefreshTokenConfiguration in `api/src/TodoApp.Infrastructure/Data/EntityConfigurations/RefreshTokenConfiguration.cs`
+- [x] T006 Update AppDbContext in `api/src/TodoApp.Infrastructure/Data/AppDbContext.cs`
+- [x] T007 [P] Create UserRepository in `api/src/TodoApp.Infrastructure/Repositories/UserRepository.cs`
+- [x] T007 [P] Create RefreshTokenRepository in `api/src/TodoApp.Infrastructure/Repositories/RefreshTokenRepository.cs`
+- [x] T008 Register DI services in `api/src/TodoApp.Infrastructure/DependencyInjection.cs`
+- [x] T009 Create IJwtTokenService interface in `api/src/TodoApp.Infrastructure/Services/IJwtTokenService.cs`
+- [x] T009 Create JwtTokenService implementation in `api/src/TodoApp.Infrastructure/Services/JwtTokenService.cs`
+- [x] T010 Configure JWT authentication in `api/src/TodoApp.Api/Program.cs`
+- [x] T011 Create EF Core migration (AddAuthentication)
+- [x] T012 Update ExceptionMapping middleware in `api/src/TodoApp.Api/Middleware/ExceptionMappingMiddleware.cs`
 
 ---
 

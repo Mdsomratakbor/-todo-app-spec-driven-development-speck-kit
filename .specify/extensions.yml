@@ -1,5 +1,6 @@
 installed:
 - agent-context
+- speckit
 settings:
   auto_execute_hooks: true
 hooks:
@@ -20,4 +21,13 @@ hooks:
     priority: 10
     prompt: Execute speckit.agent-context.update?
     description: Refresh agent context after planning
+    condition: null
+  after_implement:
+  - extension: speckit
+    command: speckit.gate3
+    enabled: true
+    optional: false
+    priority: 10
+    prompt: Execute Gate 3 auto-fix validation?
+    description: Auto-validate, fix failures, and retry up to 3 times
     condition: null
