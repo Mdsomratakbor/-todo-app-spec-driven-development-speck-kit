@@ -70,4 +70,24 @@ at specs/003-basic-auth/plan.md.
 - Logout: Revokes only current session's refresh token
 - Rate limiting: 100 req/min per IP on auth endpoints
 - Error messages: Distinct for expired vs. missing tokens
+
+## Session Summary (2026-07-20)
+
+### Done
+- **004-ui-enhancements: All 15 tasks complete (Phases 1-6)**
+  - Phase 1: Snackbar toast styles with severity colors + Material Icons (styles.scss)
+  - Phase 2: Error interceptor with user-friendly HTTP error messages
+  - Phase 3: Route transition animations (fade + slide, respects prefers-reduced-motion)
+  - Phase 4: Card hover/lift effects on todo-card and category-card
+  - Phase 5: Button loading spinners on login, register, todo-form, category-form
+  - Phase 6: Build verified (`ng build` succeeds)
+
+### Key Context
+- NotificationService: snackbar panel classes `snackbar-success/error/warning` now styled with green/red/amber + Material Icons
+- ErrorInterceptor: catches all non-401 HTTP errors, maps status codes to messages, displays via NotificationService
+- Route animations: `route.animations.ts` with `fadeSlideIn` trigger, applied via `[@routeAnimation]` in app.html
+- Card hover: `transform: translateY(-2px)` + `box-shadow` transition on todo-card and category-card
+- Button spinners: `MatIcon` with `fontIcon="sync"` + CSS `spin` animation, shown during `saving()`/`loading()` states
+- Spec at `specs/004-ui-enhancements/` with spec.md, plan.md, tasks.md, checklists/requirements.md
+- Pre-existing test issues (spec files using `NoopAnimations`/`spyOn` from Jasmine) — not caused by this feature
 <!-- SPECKIT END -->

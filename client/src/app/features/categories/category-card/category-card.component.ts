@@ -1,13 +1,12 @@
 import { Component, input, output } from '@angular/core';
-import { MatCard, MatCardHeader, MatCardTitle, MatCardSubtitle, MatCardContent, MatCardActions } from '@angular/material/card';
-import { MatButton } from '@angular/material/button';
+import { MatCard, MatCardHeader, MatCardTitle, MatCardSubtitle, MatCardActions } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
 import { Category } from '../../../shared/models/category.model';
 
 @Component({
   selector: 'app-category-card',
   standalone: true,
-  imports: [MatCard, MatCardHeader, MatCardTitle, MatCardSubtitle, MatCardContent, MatCardActions, MatButton, MatIcon],
+  imports: [MatCard, MatCardHeader, MatCardTitle, MatCardSubtitle, MatCardActions, MatIcon],
   template: `
     <mat-card class="category-card">
       <mat-card-header>
@@ -28,7 +27,10 @@ import { Category } from '../../../shared/models/category.model';
     </mat-card>
   `,
   styles: [`
-    .category-card { margin-bottom: 0.5rem; }
+    .category-card { margin-bottom: 0.5rem; transition: transform 0.2s ease-out, box-shadow 0.2s ease-out; }
+    @media (prefers-reduced-motion: no-preference) {
+      .category-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+    }
     .color-dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 0.5rem; vertical-align: middle; }
   `]
 })

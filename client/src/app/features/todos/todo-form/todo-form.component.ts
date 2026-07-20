@@ -1,6 +1,7 @@
 import { Component, input, output, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatSelect, MatOption } from '@angular/material/select';
@@ -14,7 +15,7 @@ import { futureDateValidator } from '../../../shared/validators/future-date.vali
 @Component({
   selector: 'app-todo-form',
   standalone: true,
-  imports: [ReactiveFormsModule, MatButton, MatFormField, MatLabel, MatError, MatInput, MatSelect, MatOption, MatDatepickerModule],
+  imports: [ReactiveFormsModule, MatButton, MatIcon, MatFormField, MatLabel, MatError, MatInput, MatSelect, MatOption, MatDatepickerModule],
   template: `
     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="todo-form" aria-label="Todo form">
       <mat-form-field appearance="fill" class="full-width">
@@ -73,8 +74,13 @@ import { futureDateValidator } from '../../../shared/validators/future-date.vali
 
       <div class="form-actions">
         <button mat-button type="button" (click)="cancel.emit()">Cancel</button>
-        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
-          {{ todo() ? 'Update' : 'Create' }}
+        <button mat-raised-button color="primary" type="submit" [disabled]="saving() || form.invalid">
+          @if (saving()) {
+            <mat-icon class="btn-spinner" fontIcon="sync" />
+            <span>Saving...</span>
+          } @else {
+            {{ todo() ? 'Update' : 'Create' }}
+          }
         </button>
       </div>
     </form>
@@ -85,6 +91,8 @@ import { futureDateValidator } from '../../../shared/validators/future-date.vali
     .form-row { display: flex; gap: 1rem; }
     .form-row mat-form-field { flex: 1; }
     .form-actions { display: flex; justify-content: flex-end; gap: 0.5rem; }
+    .btn-spinner { animation: spin 1s linear infinite; display: inline-flex; vertical-align: middle; margin-right: 4px; }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
   `]
 })
 export class TodoFormComponent implements OnInit {
@@ -92,6 +100,7 @@ export class TodoFormComponent implements OnInit {
   private readonly categoryService = inject(CategoryService);
 
   readonly todo = input<TodoItem | null>(null);
+  readonly saving = input(false);
   readonly save = output<{ title: string; description?: string; dueDate?: string; priorityId: number; categoryId?: string; statusId?: number }>();
   readonly cancel = output<void>();
 

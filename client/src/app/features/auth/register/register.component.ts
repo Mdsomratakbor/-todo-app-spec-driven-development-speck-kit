@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { MatCard, MatCardHeader, MatCardTitle, MatCardSubtitle, MatCardContent, MatCardActions } from '@angular/material/card';
 import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { AuthService } from '../../../shared/services/auth.service';
 import { NotificationService } from '../../../shared/services/notification.service';
@@ -11,7 +12,7 @@ import { NotificationService } from '../../../shared/services/notification.servi
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule, RouterLink, MatCard, MatCardHeader, MatCardTitle, MatCardSubtitle, MatCardContent, MatCardActions, MatInput, MatButton, MatFormField, MatLabel, MatError],
+  imports: [FormsModule, RouterLink, MatCard, MatCardHeader, MatCardTitle, MatCardSubtitle, MatCardContent, MatCardActions, MatInput, MatButton, MatIcon, MatFormField, MatLabel, MatError],
   template: `
     <div class="auth-container">
       <mat-card class="auth-card">
@@ -38,7 +39,12 @@ import { NotificationService } from '../../../shared/services/notification.servi
             </mat-form-field>
 
             <button mat-raised-button color="primary" type="submit" class="full-width" [disabled]="loading() || registerForm.invalid">
-              {{ loading() ? 'Registering...' : 'Register' }}
+              @if (loading()) {
+                <mat-icon class="btn-spinner" fontIcon="sync" />
+                <span>Registering...</span>
+              } @else {
+                Register
+              }
             </button>
           </form>
         </mat-card-content>
@@ -54,6 +60,8 @@ import { NotificationService } from '../../../shared/services/notification.servi
     .full-width { width: 100%; }
     mat-card-content { display: flex; flex-direction: column; gap: 8px; }
     mat-card-actions { justify-content: center; }
+    .btn-spinner { animation: spin 1s linear infinite; display: inline-flex; vertical-align: middle; margin-right: 4px; }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
   `,
 })
 export class RegisterComponent {

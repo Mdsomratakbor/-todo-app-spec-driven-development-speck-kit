@@ -49,7 +49,10 @@ import { TodoItem } from '../../../shared/models/todo.model';
     </mat-card>
   `,
   styles: [`
-    .todo-card { margin-bottom: 1rem; }
+    .todo-card { margin-bottom: 1rem; transition: transform 0.2s ease-out, box-shadow 0.2s ease-out; }
+    @media (prefers-reduced-motion: no-preference) {
+      .todo-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+    }
     .todo-card.overdue { border-left: 4px solid #F44336; }
     .description { color: var(--mat-sys-on-surface-variant); margin: 0.5rem 0; }
     .chips { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem; }

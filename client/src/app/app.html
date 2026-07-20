@@ -15,4 +15,6 @@
     <a mat-button routerLink="/register">Register</a>
   }
 </mat-toolbar>
-<router-outlet />
+<div [@routeAnimation]="getRouteAnimation()">
+  <router-outlet />
+</div>
