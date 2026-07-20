@@ -64,7 +64,6 @@ try
 
     app.UseMiddleware<RequestLoggingMiddleware>();
     app.UseMiddleware<ExceptionMappingMiddleware>();
-    app.UseFluentResponseExceptionHandler();
     app.UseFluentResponseCorrelationId();
     app.UseAuthentication();
     app.UseAuthorization();

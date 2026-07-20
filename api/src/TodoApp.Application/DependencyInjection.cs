@@ -56,11 +56,20 @@ public static class DependencyInjection
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
                 .ForMember(dest => dest.UserId, opt => opt.Ignore())
                 .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())
-                .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore());
+                .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore())
+                .ForMember(dest => dest.LunchStartTime, opt => opt.Ignore())
+                .ForMember(dest => dest.LunchEndTime, opt => opt.Ignore());
             cfg.CreateMap<CreateOrUpdateLunchPreferenceCommand, LunchPreference>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
                 .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())
-                .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore());
+                .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore())
+                .ForMember(dest => dest.LunchStartTime, opt => opt.Ignore())
+                .ForMember(dest => dest.LunchEndTime, opt => opt.Ignore())
+                .ForMember(dest => dest.DietaryRestrictions, opt => opt.Ignore())
+                .ForMember(dest => dest.FavoriteMeals, opt => opt.Ignore())
+                .ForMember(dest => dest.ExcludedItems, opt => opt.Ignore())
+                .ForMember(dest => dest.NotificationsEnabled, opt => opt.Ignore())
+                .ForMember(dest => dest.BreakDurationMinutes, opt => opt.Ignore());
         });
 
         return services;

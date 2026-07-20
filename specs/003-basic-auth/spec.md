@@ -178,6 +178,9 @@ As a logged-in user, I want to retrieve my profile information so that I can vie
 - How does the system handle a refresh token that has been used (rotation)? — Old refresh token is invalidated; new pair issued on successful refresh.
 - What happens when a user provides a malformed JWT token? — 401 Unauthorized with message "Invalid token format."
 - How does the system handle password requirements not met? — 400 with specific validation errors (e.g., "Password must be at least 8 characters", "Password must contain uppercase, lowercase, and digit").
+- What happens when the JWT signing key is rotated? — Existing tokens signed with the old key remain valid until expiry; new tokens are signed with the new key. System supports multiple signing keys via key ID (kid) header claim. Rotation is a manual infrastructure operation (update environment variable, restart application).
+- What happens when the database is unavailable during token refresh? — 503 Service Unavailable returned. Client must retry with exponential backoff or re-authenticate after database recovery. Access tokens continue to work for their lifetime (stateless validation).
+- What happens if a user's email is changed after tokens are issued? — Out of scope for this feature (email update not implemented). If email is changed externally (e.g., direct database modification), existing tokens remain valid until expiry. The email claim in the JWT reflects the email at time of issuance; profile endpoint returns current database email.
 
 ---
 
@@ -197,6 +200,8 @@ As a logged-in user, I want to retrieve my profile information so that I can vie
 - **FR-010**: System MUST update backend API URLs to follow consistent versioned pattern (`/api/v1/auth/*`). **Priority**: P1. **Rationale**: Consistent API design. **Acceptance Criteria**: All auth endpoints are under `/api/v1/auth/` prefix; existing endpoints remain unchanged.
 - **FR-011**: System MUST validate password strength on registration. **Priority**: P1. **Rationale**: Enforce minimum security. **Acceptance Criteria**: Password must be at least 8 characters, contain uppercase, lowercase, digit; validation errors returned for each unmet requirement.
 - **FR-012**: System MUST store refresh tokens server-side with expiry tracking. **Priority**: P1. **Rationale**: Enable token revocation and rotation. **Acceptance Criteria**: Refresh tokens are stored in database with userId, token hash, expiry, and revoked status.
+- **FR-013**: System MUST support JWT signing key rotation via key ID (kid) header claim. **Priority**: P2. **Rationale**: Enable secure key rotation without service downtime. **Acceptance Criteria**: JWT tokens include kid header; system validates against multiple configured signing keys; old keys remain valid until tokens expire.
+- **FR-014**: System MUST return 503 Service Unavailable when database is unreachable during token refresh. **Priority**: P2. **Rationale**: Graceful degradation; access tokens remain valid via stateless validation. **Acceptance Criteria**: POST `/api/v1/auth/refresh` returns 503 with message "Service temporarily unavailable. Please try again later." when database is unreachable.
 
 ### Non-Functional Requirements
 
@@ -223,11 +228,14 @@ As a logged-in user, I want to retrieve my profile information so that I can vie
 | BR-010 | Email comparison MUST be case-insensitive | Consistent user identification | Normalized email storage |
 | BR-011 | Auth endpoints MUST be rate-limited to 100 requests per minute per IP | Prevent brute-force attacks | Rate limit enforcement |
 | BR-012 | New users MUST be assigned "User" role by default | Consistent onboarding | Default role assignment |
+| BR-013 | JWT signing key rotation MUST be supported via multiple signing keys | Enable secure key rotation without downtime | Key ID (kid) header claim; old keys remain valid until expiry |
+| BR-014 | Database unavailability during token refresh MUST return 503 Service Unavailable | Graceful degradation | Access tokens continue to work (stateless); refresh requires database |
+| BR-015 | Email changes after token issuance MUST NOT invalidate existing tokens | Avoid forced re-authentication on email change | Tokens valid until expiry; profile endpoint returns current email |
 
 ### Key Entities
 
 - **User**: Represents a registered user with email, hashed password, role, and account metadata. One-to-one with authentication identity.
-- **RefreshToken**: Represents an active refresh token associated with a user. Contains token hash, expiry, device info, and revocation status. Multiple tokens per user (up to 5).
+- **RefreshToken**: Represents an active refresh token associated with a user. Contains token hash, expiry, and revocation status. Multiple tokens per user (up to 5). Device info and IP tracking are not included in this version (future enhancement).
 
 ---
 
@@ -268,6 +276,10 @@ As a logged-in user, I want to retrieve my profile information so that I can vie
 - Q: Should logout revoke all refresh tokens or just the current one? → A: Revoke only the current session's refresh token (single device logout).
 - Q: Should the error message distinguish between expired vs. missing tokens? → A: Yes, distinct messages: "Token has expired." vs. "Authentication is required."
 - Q: What claims should the JWT access token contain? → A: User ID, email, and role claim (extensible for future RBAC).
+- Q: Should the RefreshToken entity include device info? → A: No, device info is intentionally omitted from this version. Future enhancement for multi-device session management.
+- Q: What happens when the JWT signing key is rotated? → A: Multiple signing keys supported via kid header claim. Old keys remain valid until tokens expire. Rotation is manual infrastructure operation.
+- Q: What happens when the database is unavailable during token refresh? → A: 503 Service Unavailable returned. Access tokens continue to work (stateless validation); client retries with backoff.
+- Q: What happens if a user's email is changed after tokens are issued? → A: Out of scope (email update not implemented). Existing tokens remain valid until expiry; profile returns current email.
 
 ---
 
@@ -355,4 +367,5 @@ As a logged-in user, I want to retrieve my profile information so that I can vie
 | 401 | UNAUTHORIZED | Invalid credentials | "Invalid email or password." |
 | 409 | CONFLICT | Email already registered | "An account with this email already exists." |
 | 429 | RATE_LIMIT_EXCEEDED | Too many login attempts | "Too many requests. Please try again later." |
+| 503 | SERVICE_UNAVAILABLE | Database unreachable during refresh | "Service temporarily unavailable. Please try again later." |
 | 500 | INTERNAL_ERROR | Unexpected server error | "An unexpected error occurred. Please try again later." |

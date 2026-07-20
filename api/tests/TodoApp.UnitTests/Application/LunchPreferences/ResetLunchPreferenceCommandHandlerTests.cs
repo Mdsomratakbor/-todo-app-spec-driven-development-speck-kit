@@ -44,8 +44,8 @@ public class ResetLunchPreferenceCommandHandlerTests
         {
             Id = existing.Id,
             UserId = userId,
-            LunchStartTime = "12:00",
-            LunchEndTime = "13:00",
+            LunchStartTime = new TimeOnly(12, 0),
+            LunchEndTime = new TimeOnly(13, 0),
             BreakDurationMinutes = 60,
             NotificationsEnabled = true,
             DietaryRestrictions = [],
@@ -85,8 +85,8 @@ public class ResetLunchPreferenceCommandHandlerTests
         {
             Id = Guid.NewGuid(),
             UserId = userId,
-            LunchStartTime = "12:00",
-            LunchEndTime = "13:00",
+            LunchStartTime = new TimeOnly(12, 0),
+            LunchEndTime = new TimeOnly(13, 0),
             BreakDurationMinutes = 60,
             NotificationsEnabled = true,
             DietaryRestrictions = [],

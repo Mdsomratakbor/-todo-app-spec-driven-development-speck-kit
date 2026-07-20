@@ -13,15 +13,31 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 {
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
+        var testJwtKey = "TestSecretKeyForIntegrationTests2024!ThisIsAtLeast32CharsLong";
+        Environment.SetEnvironmentVariable("Jwt__Key", testJwtKey);
+        Environment.SetEnvironmentVariable("Jwt__Issuer", "test-issuer");
+        Environment.SetEnvironmentVariable("Jwt__Audience", "test-audience");
+
         builder.ConfigureTestServices(services =>
         {
-            var dbDescriptor = services.SingleOrDefault(
-                d => d.ServiceType == typeof(DbContextOptions<AppDbContext>));
-            if (dbDescriptor is not null)
-                services.Remove(dbDescriptor);
+            var dbContextDescriptors = services
+                .Where(d => d.ServiceType == typeof(AppDbContext))
+                .ToList();
+            foreach (var d in dbContextDescriptors)
+                services.Remove(d);
 
-            services.AddDbContext<AppDbContext>(options =>
-                options.UseInMemoryDatabase("TestDb"));
+            var optionsDescriptors = services
+                .Where(d => d.ServiceType == typeof(DbContextOptions<AppDbContext>))
+                .ToList();
+            foreach (var d in optionsDescriptors)
+                services.Remove(d);
+
+            services.AddScoped<AppDbContext>(sp =>
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+                optionsBuilder.UseInMemoryDatabase("TestDb");
+                return new AppDbContext(optionsBuilder.Options);
+            });
 
             var jwtPostConfigure = services
                 .Where(d => d.ServiceType == typeof(IConfigureOptions<JwtBearerOptions>))

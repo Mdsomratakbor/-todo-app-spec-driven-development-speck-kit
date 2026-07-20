@@ -40,12 +40,12 @@
 
 **Independent Test**: A user can register with a valid email and password, receive a JWT token, and access protected endpoints. Registration with an existing email fails with appropriate error.
 
-- [ ] T013 [US1] Create RegisterCommand in `api/src/TodoApp.Application/Auth/Commands/Register/RegisterCommand.cs`
-- [ ] T014 [US1] Create RegisterCommandValidator in `api/src/TodoApp.Application/Auth/Commands/Register/RegisterCommandValidator.cs`
-- [ ] T015 [US1] Create RegisterCommandHandler in `api/src/TodoApp.Application/Auth/Commands/Register/RegisterCommandHandler.cs`
-- [ ] T016 [US1] Create AuthResponse DTO in `api/src/TodoApp.Application/Auth/Dtos/AuthResponse.cs`
-- [ ] T017 [US1] Create RegisterCommandValidator tests in `api/tests/TodoApp.UnitTests/Application/Auth/Commands/Register/RegisterCommandValidatorTests.cs`
-- [ ] T018 [US1] Create RegisterCommandHandler tests in `api/tests/TodoApp.UnitTests/Application/Auth/Commands/Register/RegisterCommandHandlerTests.cs`
+- [x] T013 [US1] Create RegisterCommand in `api/src/TodoApp.Application/Auth/Commands/Register/RegisterCommand.cs`
+- [x] T014 [US1] Create RegisterCommandValidator in `api/src/TodoApp.Application/Auth/Commands/Register/RegisterCommandValidator.cs`
+- [x] T015 [US1] Create RegisterCommandHandler in `api/src/TodoApp.Application/Auth/Commands/Register/RegisterCommandHandler.cs`
+- [x] T016 [US1] Create AuthResponse DTO in `api/src/TodoApp.Application/Auth/Dtos/AuthResponse.cs`
+- [x] T017 [US1] Create RegisterCommandValidator tests in `api/tests/TodoApp.UnitTests/Application/Auth/Commands/Register/RegisterCommandValidatorTests.cs`
+- [x] T018 [US1] Create RegisterCommandHandler tests in `api/tests/TodoApp.UnitTests/Application/Auth/Commands/Register/RegisterCommandHandlerTests.cs`
 
 ---
 
@@ -55,12 +55,12 @@
 
 **Independent Test**: A user can log in with valid credentials and receive JWT tokens. Invalid credentials result in appropriate error responses.
 
-- [ ] T019 [US2] Create LoginCommand in `api/src/TodoApp.Application/Auth/Commands/Login/LoginCommand.cs`
-- [ ] T020 [US2] Create LoginCommandValidator in `api/src/TodoApp.Application/Auth/Commands/Login/LoginCommandValidator.cs`
-- [ ] T021 [US2] Create LoginCommandHandler in `api/src/TodoApp.Application/Auth/Commands/Login/LoginCommandHandler.cs`
-- [ ] T022 [US2] Create LoginCommandValidator tests in `api/tests/TodoApp.UnitTests/Application/Auth/Commands/Login/LoginCommandValidatorTests.cs`
-- [ ] T023 [US2] Create LoginCommandHandler tests in `api/tests/TodoApp.UnitTests/Application/Auth/Commands/Login/LoginCommandHandlerTests.cs`
-- [ ] T024 [US2] Create Auth integration tests in `api/tests/TodoApp.IntegrationTests/Api/AuthEndpointsTests.cs`
+- [x] T019 [US2] Create LoginCommand in `api/src/TodoApp.Application/Auth/Commands/Login/LoginCommand.cs`
+- [x] T020 [US2] Create LoginCommandValidator in `api/src/TodoApp.Application/Auth/Commands/Login/LoginCommandValidator.cs`
+- [x] T021 [US2] Create LoginCommandHandler in `api/src/TodoApp.Application/Auth/Commands/Login/LoginCommandHandler.cs`
+- [x] T022 [US2] Create LoginCommandValidator tests in `api/tests/TodoApp.UnitTests/Application/Auth/Commands/Login/LoginCommandValidatorTests.cs`
+- [x] T023 [US2] Create LoginCommandHandler tests in `api/tests/TodoApp.UnitTests/Application/Auth/Commands/Login/LoginCommandHandlerTests.cs`
+- [x] T024 [US2] Create Auth integration tests in `api/tests/TodoApp.IntegrationTests/Api/AuthEndpointsTests.cs`
 
 ---
 
@@ -70,12 +70,12 @@
 
 **Independent Test**: A user can exchange a valid refresh token for a new access token. Expired or invalid refresh tokens are rejected.
 
-- [ ] T025 [US3] Create RefreshTokenCommand in `api/src/TodoApp.Application/Auth/Commands/RefreshToken/RefreshTokenCommand.cs`
-- [ ] T026 [US3] Create RefreshTokenCommandValidator in `api/src/TodoApp.Application/Auth/Commands/RefreshToken/RefreshTokenCommandValidator.cs`
-- [ ] T027 [US3] Create RefreshTokenCommandHandler in `api/src/TodoApp.Application/Auth/Commands/RefreshToken/RefreshTokenCommandHandler.cs`
-- [ ] T028 [US3] Create RefreshTokenCommandValidator tests in `api/tests/TodoApp.UnitTests/Application/Auth/Commands/RefreshToken/RefreshTokenCommandValidatorTests.cs`
-- [ ] T029 [US3] Create RefreshTokenCommandHandler tests in `api/tests/TodoApp.UnitTests/Application/Auth/Commands/RefreshToken/RefreshTokenCommandHandlerTests.cs`
-- [ ] T030 [US3] Add refresh token integration tests in `api/tests/TodoApp.IntegrationTests/Api/AuthEndpointsTests.cs`
+- [x] T025 [US3] Create RefreshTokenCommand in `api/src/TodoApp.Application/Auth/Commands/RefreshToken/RefreshTokenCommand.cs`
+- [x] T026 [US3] Create RefreshTokenCommandValidator in `api/src/TodoApp.Application/Auth/Commands/RefreshToken/RefreshTokenCommandValidator.cs`
+- [x] T027 [US3] Create RefreshTokenCommandHandler in `api/src/TodoApp.Application/Auth/Commands/RefreshToken/RefreshTokenCommandHandler.cs`
+- [x] T028 [US3] Create RefreshTokenCommandValidator tests in `api/tests/TodoApp.UnitTests/Application/Auth/Commands/RefreshToken/RefreshTokenCommandValidatorTests.cs`
+- [x] T029 [US3] Create RefreshTokenCommandHandler tests in `api/tests/TodoApp.UnitTests/Application/Auth/Commands/RefreshToken/RefreshTokenCommandHandlerTests.cs`
+- [x] T030 [US3] Add refresh token integration tests in `api/tests/TodoApp.IntegrationTests/Api/AuthEndpointsTests.cs`
 
 ---
 
@@ -85,10 +85,10 @@
 
 **Independent Test**: A user can log out and their refresh token is invalidated. Subsequent requests with the old refresh token fail.
 
-- [ ] T031 [US4] Create LogoutCommand in `api/src/TodoApp.Application/Auth/Commands/Logout/LogoutCommand.cs`
-- [ ] T032 [US4] Create LogoutCommandHandler in `api/src/TodoApp.Application/Auth/Commands/Logout/LogoutCommandHandler.cs`
-- [ ] T033 [US4] Create LogoutCommandHandler tests in `api/tests/TodoApp.UnitTests/Application/Auth/Commands/Logout/LogoutCommandHandlerTests.cs`
-- [ ] T034 [US4] Add logout integration tests in `api/tests/TodoApp.IntegrationTests/Api/AuthEndpointsTests.cs`
+- [x] T031 [US4] Create LogoutCommand in `api/src/TodoApp.Application/Auth/Commands/Logout/LogoutCommand.cs`
+- [x] T032 [US4] Create LogoutCommandHandler in `api/src/TodoApp.Application/Auth/Commands/Logout/LogoutCommandHandler.cs`
+- [x] T033 [US4] Create LogoutCommandHandler tests in `api/tests/TodoApp.UnitTests/Application/Auth/Commands/Logout/LogoutCommandHandlerTests.cs`
+- [x] T034 [US4] Add logout integration tests in `api/tests/TodoApp.IntegrationTests/Api/AuthEndpointsTests.cs`
 
 ---
 
@@ -98,57 +98,57 @@
 
 **Independent Test**: An authenticated user can retrieve their profile. Unauthenticated requests are rejected.
 
-- [ ] T035 [US5] Create GetCurrentUserQuery in `api/src/TodoApp.Application/Auth/Queries/GetCurrentUser/GetCurrentUserQuery.cs`
-- [ ] T036 [US5] Create UserProfileResponse DTO in `api/src/TodoApp.Application/Auth/Dtos/UserProfileResponse.cs`
-- [ ] T037 [US5] Create GetCurrentUserQueryHandler in `api/src/TodoApp.Application/Auth/Queries/GetCurrentUser/GetCurrentUserQueryHandler.cs`
-- [ ] T038 [US5] Create GetCurrentUserQueryHandler tests in `api/tests/TodoApp.UnitTests/Application/Auth/Queries/GetCurrentUser/GetCurrentUserQueryHandlerTests.cs`
+- [x] T035 [US5] Create GetCurrentUserQuery in `api/src/TodoApp.Application/Auth/Queries/GetCurrentUser/GetCurrentUserQuery.cs`
+- [x] T036 [US5] Create UserProfileResponse DTO in `api/src/TodoApp.Application/Auth/Dtos/UserProfileResponse.cs`
+- [x] T037 [US5] Create GetCurrentUserQueryHandler in `api/src/TodoApp.Application/Auth/Queries/GetCurrentUser/GetCurrentUserQueryHandler.cs`
+- [x] T038 [US5] Create GetCurrentUserQueryHandler tests in `api/tests/TodoApp.UnitTests/Application/Auth/Queries/GetCurrentUser/GetCurrentUserQueryHandlerTests.cs`
 
 ---
 
 ## Phase 8: API Layer
 
-- [ ] T039 Create AuthController in `api/src/TodoApp.Api/Controllers/AuthController.cs`
-- [ ] T040 [P] Create RegisterRequest DTO in `api/src/TodoApp.Application/Auth/Dtos/RegisterRequest.cs`
-- [ ] T040 [P] Create LoginRequest DTO in `api/src/TodoApp.Application/Auth/Dtos/LoginRequest.cs`
-- [ ] T040 [P] Create RefreshRequest DTO in `api/src/TodoApp.Application/Auth/Dtos/RefreshRequest.cs`
-- [ ] T041 Configure JWT in Program.cs in `api/src/TodoApp.Api/Program.cs`
-- [ ] T042 Create AuthController integration tests in `api/tests/TodoApp.IntegrationTests/Api/AuthEndpointsTests.cs`
-- [ ] T043 Create RefreshTokenCleanupService in `api/src/TodoApp.Infrastructure/Services/RefreshTokenCleanupService.cs`
-- [ ] T044 Register background service in `api/src/TodoApp.Infrastructure/DependencyInjection.cs`
+- [x] T039 Create AuthController in `api/src/TodoApp.Api/Controllers/AuthController.cs`
+- [x] T040 [P] Create RegisterRequest DTO in `api/src/TodoApp.Application/Auth/Dtos/RegisterRequest.cs`
+- [x] T040 [P] Create LoginRequest DTO in `api/src/TodoApp.Application/Auth/Dtos/LoginRequest.cs`
+- [x] T040 [P] Create RefreshRequest DTO in `api/src/TodoApp.Application/Auth/Dtos/RefreshRequest.cs`
+- [x] T041 Configure JWT in Program.cs in `api/src/TodoApp.Api/Program.cs`
+- [x] T042 Create AuthController integration tests in `api/tests/TodoApp.IntegrationTests/Api/AuthEndpointsTests.cs`
+- [x] T043 Create RefreshTokenCleanupService in `api/src/TodoApp.Infrastructure/Services/RefreshTokenCleanupService.cs`
+- [x] T044 Register background service in `api/src/TodoApp.Infrastructure/DependencyInjection.cs`
 
 ---
 
 ## Phase 9: Polish & Cross-Cutting
 
-- [ ] T045 Verify rate limiting applies to auth endpoints in `api/src/TodoApp.Api/Middleware/RateLimitingMiddleware.cs`
-- [ ] T046 Add logging to RegisterCommandHandler in `api/src/TodoApp.Application/Auth/Commands/Register/RegisterCommandHandler.cs`
-- [ ] T046 Add logging to LoginCommandHandler in `api/src/TodoApp.Application/Auth/Commands/Login/LoginCommandHandler.cs`
-- [ ] T046 Add logging to LogoutCommandHandler in `api/src/TodoApp.Application/Auth/Commands/Logout/LogoutCommandHandler.cs`
-- [ ] T046 Add logging to RefreshTokenCommandHandler in `api/src/TodoApp.Application/Auth/Commands/RefreshToken/RefreshTokenCommandHandler.cs`
-- [ ] T047 Update AGENTS.md context in `AGENTS.md`
-- [ ] T048 Run all tests (`dotnet test`)
-- [ ] T049 Verify build (`dotnet build`)
-- [ ] T050 Create final EF Core migration
+- [x] T045 Verify rate limiting applies to auth endpoints in `api/src/TodoApp.Api/Middleware/RateLimitingMiddleware.cs`
+- [x] T046 Add logging to RegisterCommandHandler in `api/src/TodoApp.Application/Auth/Commands/Register/RegisterCommandHandler.cs`
+- [x] T046 Add logging to LoginCommandHandler in `api/src/TodoApp.Application/Auth/Commands/Login/LoginCommandHandler.cs`
+- [x] T046 Add logging to LogoutCommandHandler in `api/src/TodoApp.Application/Auth/Commands/Logout/LogoutCommandHandler.cs`
+- [x] T046 Add logging to RefreshTokenCommandHandler in `api/src/TodoApp.Application/Auth/Commands/RefreshToken/RefreshTokenCommandHandler.cs`
+- [x] T047 Update AGENTS.md context in `AGENTS.md`
+- [x] T048 Run all tests (`dotnet test`)
+- [x] T049 Verify build (`dotnet build`)
+- [x] T050 Create final EF Core migration
 
 ---
 
 ## Phase 10: Client Setup
 
-- [ ] T051 [P] Create auth models in `client/src/app/shared/models/auth.model.ts`
-- [ ] T052 [P] Create AuthResponse interface in `client/src/app/shared/models/auth.model.ts`
-- [ ] T053 [P] Create LoginRequest interface in `client/src/app/shared/models/auth.model.ts`
-- [ ] T054 [P] Create RegisterRequest interface in `client/src/app/shared/models/auth.model.ts`
-- [ ] T055 [P] Create UserProfile interface in `client/src/app/shared/models/auth.model.ts`
+- [x] T051 [P] Create auth models in `client/src/app/shared/models/auth.model.ts`
+- [x] T052 [P] Create AuthResponse interface in `client/src/app/shared/models/auth.model.ts`
+- [x] T053 [P] Create LoginRequest interface in `client/src/app/shared/models/auth.model.ts`
+- [x] T054 [P] Create RegisterRequest interface in `client/src/app/shared/models/auth.model.ts`
+- [x] T055 [P] Create UserProfile interface in `client/src/app/shared/models/auth.model.ts`
 
 ---
 
 ## Phase 11: Client Foundational
 
-- [ ] T056 Create AuthService in `client/src/app/shared/services/auth.service.ts`
-- [ ] T057 Create TokenService in `client/src/app/shared/services/token.service.ts`
-- [ ] T058 Create auth interceptor in `client/src/app/shared/interceptors/auth.interceptor.ts`
-- [ ] T059 Create auth guard in `client/src/app/shared/guards/auth.guard.ts`
-- [ ] T060 Register interceptor in `client/src/app/app.config.ts`
+- [x] T056 Create AuthService in `client/src/app/shared/services/auth.service.ts`
+- [x] T057 Create TokenService in `client/src/app/shared/services/token.service.ts`
+- [x] T058 Create auth interceptor in `client/src/app/shared/interceptors/auth.interceptor.ts`
+- [x] T059 Create auth guard in `client/src/app/shared/guards/auth.guard.ts`
+- [x] T060 Register interceptor in `client/src/app/app.config.ts`
 
 ---
 
@@ -158,9 +158,9 @@
 
 **Independent Test**: User can navigate to registration page, fill form, submit, and be redirected to the app.
 
-- [ ] T061 [US1] Create register component in `client/src/app/features/auth/register/register.component.ts`
-- [ ] T062 [US1] Create register form with validation in `client/src/app/features/auth/register/register.component.ts`
-- [ ] T063 [US1] Add register route in `client/src/app/app.routes.ts`
+- [x] T061 [US1] Create register component in `client/src/app/features/auth/register/register.component.ts`
+- [x] T062 [US1] Create register form with validation in `client/src/app/features/auth/register/register.component.ts`
+- [x] T063 [US1] Add register route in `client/src/app/app.routes.ts`
 
 ---
 
@@ -170,10 +170,10 @@
 
 **Independent Test**: User can navigate to login page, enter credentials, submit, and be redirected to the app with valid session.
 
-- [ ] T064 [US2] Create login component in `client/src/app/features/auth/login/login.component.ts`
-- [ ] T065 [US2] Create login form with validation in `client/src/app/features/auth/login/login.component.ts`
-- [ ] T066 [US2] Add login route in `client/src/app/app.routes.ts`
-- [ ] T067 [US2] Protect existing routes with auth guard in `client/src/app/app.routes.ts`
+- [x] T064 [US2] Create login component in `client/src/app/features/auth/login/login.component.ts`
+- [x] T065 [US2] Create login form with validation in `client/src/app/features/auth/login/login.component.ts`
+- [x] T066 [US2] Add login route in `client/src/app/app.routes.ts`
+- [x] T067 [US2] Protect existing routes with auth guard in `client/src/app/app.routes.ts`
 
 ---
 
@@ -183,8 +183,8 @@
 
 **Independent Test**: User can click logout, tokens are cleared, and user is redirected to login page.
 
-- [ ] T068 [US4] Add logout method to AuthService in `client/src/app/shared/services/auth.service.ts`
-- [ ] T069 [US4] Add logout button to app header/navigation in `client/src/app/app.html`
+- [x] T068 [US4] Add logout method to AuthService in `client/src/app/shared/services/auth.service.ts`
+- [x] T069 [US4] Add logout button to app header/navigation in `client/src/app/app.html`
 
 ---
 
@@ -194,18 +194,18 @@
 
 **Independent Test**: User can view their email, role, and account creation date.
 
-- [ ] T070 [US5] Create profile component in `client/src/app/features/auth/profile/profile.component.ts`
-- [ ] T071 [US5] Add profile route in `client/src/app/app.routes.ts`
-- [ ] T072 [US5] Add profile link to app header/navigation in `client/src/app/app.html`
+- [x] T070 [US5] Create profile component in `client/src/app/features/auth/profile/profile.component.ts`
+- [x] T071 [US5] Add profile route in `client/src/app/app.routes.ts`
+- [x] T072 [US5] Add profile link to app header/navigation in `client/src/app/app.html`
 
 ---
 
 ## Phase 16: Client Polish
 
-- [ ] T073 Add redirect logic after login/register in `client/src/app/features/auth/login/login.component.ts` and `register.component.ts`
-- [ ] T074 Handle 401 interceptor redirect in `client/src/app/shared/interceptors/auth.interceptor.ts`
-- [ ] T075 Add Angular Material styling to auth forms
-- [ ] T076 Run client tests (`npm test`)
+- [x] T073 Add redirect logic after login/register in `client/src/app/features/auth/login/login.component.ts` and `register.component.ts`
+- [x] T074 Handle 401 interceptor redirect in `client/src/app/shared/interceptors/auth.interceptor.ts`
+- [x] T075 Add Angular Material styling to auth forms
+- [x] T076 Run client tests (`npm test`)
 
 ---
 

@@ -56,9 +56,9 @@
 ## Scenario Coverage
 
 - [x] CHK026 Are requirements defined for concurrent login from multiple devices (same user)? [Coverage, Edge Case, Spec §Edge Cases]
-- [ ] CHK027 Are requirements defined for what happens when the JWT signing key is rotated? [Coverage, Gap, Spec §Risks]
-- [ ] CHK028 Are requirements defined for database unavailability during token refresh? [Coverage, Exception Flow, Gap]
-- [ ] CHK029 Are requirements defined for the scenario where a user's email is changed after tokens are issued? [Coverage, Gap, Out of Scope but impacts token validity]
+- [x] CHK027 Are requirements defined for what happens when the JWT signing key is rotated? [Coverage, Gap, Spec §Risks]
+- [x] CHK028 Are requirements defined for database unavailability during token refresh? [Coverage, Exception Flow, Gap]
+- [x] CHK029 Are requirements defined for the scenario where a user's email is changed after tokens are issued? [Coverage, Gap, Out of Scope but impacts token validity]
 - [x] CHK030 Are requirements defined for the token cleanup background service behavior (frequency, retention period, failure handling)? [Coverage, Gap, Spec §FR-012]
 - [x] CHK031 Are requirements defined for what happens when the maximum 5 refresh tokens limit is reached for a user? [Coverage, Edge Case, Spec §BR-009]
 
@@ -96,7 +96,7 @@
 
 ## Ambiguities & Gaps
 
-- [ ] CHK047 Is the "device info" field mentioned in the Key Entities section (RefreshToken) fully defined or intentionally omitted? [Ambiguity, Spec §Key Entities]
+- [x] CHK047 Is the "device info" field mentioned in the Key Entities section (RefreshToken) fully defined or intentionally omitted? [Ambiguity, Spec §Key Entities]
 - [x] CHK048 Is the "update the backend request url" from the user description fully addressed by the /api/v1/auth/* prefix, or are existing endpoints expected to change? [Ambiguity, Spec §FR-010]
 - [x] CHK049 Are the error response bodies (RFC 7807 Problem Details) fully specified with field names and formats? [Gap, Spec §Error Codes]
 - [x] CHK050 Is the "configurable" JWT expiry mechanism documented — how are values loaded and validated at startup? [Gap, Spec §BR-006, BR-007]
@@ -114,14 +114,14 @@
 ## Summary
 
 **Total Items**: 53
-**Completed**: 49
-**Incomplete**: 4 (CHK027, CHK028, CHK029, CHK047)
+**Completed**: 53
+**Incomplete**: 0
 **Categories**: 11
 **Created**: 2026-07-15
 **Feature**: Basic Authentication (003-basic-auth)
 
-**Incomplete Items (Gaps)**:
-- CHK027: JWT signing key rotation requirements (future enhancement)
-- CHK028: Database unavailability handling (infrastructure concern)
-- CHK029: Email change after token issuance (out of scope)
-- CHK047: Device info field in RefreshToken entity (intentionally omitted from data model)
+**Previously Incomplete Items (Now Resolved)**:
+- CHK027: JWT signing key rotation — Added FR-013, BR-013, edge case, and clarification
+- CHK028: Database unavailability — Added FR-014, BR-014, edge case, error code, and clarification
+- CHK029: Email change after token issuance — Added BR-015, edge case, and clarification
+- CHK047: Device info field — Clarified as intentionally omitted from this version

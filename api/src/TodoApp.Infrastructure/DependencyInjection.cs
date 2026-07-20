@@ -14,8 +14,9 @@ public static class DependencyInjection
         services.AddScoped<ILunchPreferenceRepository, LunchPreferenceRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
-        services.AddScoped<IJwtTokenService, JwtTokenService>();
+        services.AddScoped<TodoApp.Application.Common.Interfaces.IJwtTokenService, JwtTokenService>();
         services.AddHostedService<TodoCleanupService>();
+        services.AddHostedService<RefreshTokenCleanupService>();
         return services;
     }
 }
