@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NoopAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideNativeDateAdapter } from '@angular/material/core';
 import { TodoListComponent } from './todo-list.component';
 import { of } from 'rxjs';
 
@@ -11,10 +11,11 @@ describe('TodoListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TodoListComponent, NoopAnimations],
+      imports: [TodoListComponent],
       providers: [
         provideHttpClient(),
         provideHttpClientTesting(),
+        provideNativeDateAdapter(),
       ],
     }).compileComponents();
 
@@ -29,7 +30,7 @@ describe('TodoListComponent', () => {
 
   it('should show create form', () => {
     component.showCreateForm();
-    expect(component.creating).toBeTrue();
+    expect(component.creating).toBe(true);
     expect(component.editingTodo).toBeNull();
   });
 
@@ -40,17 +41,17 @@ describe('TodoListComponent', () => {
       description: 'Description',
       priority: { id: 2, name: 'Medium', color: '#3498DB' },
       status: { id: 1, name: 'Pending', color: '#95A5A6' },
-      category: null,
+      category: undefined,
       createdAt: '2026-01-01T00:00:00Z',
-      updatedAt: null,
+      updatedAt: undefined,
     };
     component.startEdit(todo);
     expect(component.editingTodo).toEqual(todo);
-    expect(component.creating).toBeFalse();
+    expect(component.creating).toBe(false);
   });
 
   it('should cancel edit', () => {
-    component.editingTodo = { id: '1', title: 'Test', priority: { id: 2, name: 'Medium', color: '#3498DB' }, status: { id: 1, name: 'Pending', color: '#95A5A6' }, createdAt: '2026-01-01T00:00:00Z', updatedAt: null, description: null, category: null };
+    component.editingTodo = { id: '1', title: 'Test', priority: { id: 2, name: 'Medium', color: '#3498DB' }, status: { id: 1, name: 'Pending', color: '#95A5A6' }, createdAt: '2026-01-01T00:00:00Z', updatedAt: undefined, description: undefined, category: undefined };
     component.cancelEdit();
     expect(component.editingTodo).toBeNull();
   });

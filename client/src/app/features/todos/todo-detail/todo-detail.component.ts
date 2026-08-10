@@ -6,7 +6,6 @@ import { MatChip } from '@angular/material/chips';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { TodoService } from '../../../shared/services/todo.service';
-import { NotificationService } from '../../../shared/services/notification.service';
 import { TodoItem } from '../../../shared/models/todo.model';
 import { LoadingSpinnerComponent } from '../../../shared/components/loading-spinner/loading-spinner.component';
 
@@ -65,7 +64,6 @@ export class TodoDetailComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly todoService = inject(TodoService);
-  private readonly notification = inject(NotificationService);
 
   readonly todo = signal<TodoItem | undefined>(undefined);
   readonly loading = signal(true);
@@ -82,7 +80,6 @@ export class TodoDetailComponent implements OnInit {
         this.loading.set(false);
       },
       error: () => {
-        this.notification.error('Failed to load todo.');
         this.loading.set(false);
       }
     });

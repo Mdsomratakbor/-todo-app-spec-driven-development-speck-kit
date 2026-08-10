@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NoopAnimations } from '@angular/platform-browser/animations';
 import { CategoryCardComponent } from './category-card.component';
 
 describe('CategoryCardComponent', () => {
@@ -10,7 +9,7 @@ describe('CategoryCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CategoryCardComponent, NoopAnimations],
+      imports: [CategoryCardComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CategoryCardComponent);
@@ -29,13 +28,13 @@ describe('CategoryCardComponent', () => {
   });
 
   it('should emit edit on edit click', () => {
-    const editSpy = spyOn(component.edit, 'emit');
+    const editSpy = vi.spyOn(component.edit, 'emit');
     component.edit.emit(testCategory);
     expect(editSpy).toHaveBeenCalledWith(testCategory);
   });
 
   it('should emit delete on delete click', () => {
-    const deleteSpy = spyOn(component.delete, 'emit');
+    const deleteSpy = vi.spyOn(component.delete, 'emit');
     component.delete.emit('1');
     expect(deleteSpy).toHaveBeenCalledWith('1');
   });

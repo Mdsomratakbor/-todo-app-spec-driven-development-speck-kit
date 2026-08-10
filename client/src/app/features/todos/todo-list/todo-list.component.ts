@@ -109,7 +109,6 @@ export class TodoListComponent implements OnInit {
         this.loading.set(false);
       },
       error: () => {
-        this.notification.error('Failed to load todos.');
         this.loading.set(false);
       }
     });
@@ -134,7 +133,7 @@ export class TodoListComponent implements OnInit {
         this.creating = false;
         this.loadTodos();
       },
-      error: () => this.notification.error('Failed to create todo.')
+      error: () => undefined
     });
   }
 
@@ -156,7 +155,7 @@ export class TodoListComponent implements OnInit {
         this.editingTodo = null;
         this.loadTodos();
       },
-      error: () => this.notification.error('Failed to update todo.')
+      error: () => undefined
     });
   }
 
@@ -175,7 +174,7 @@ export class TodoListComponent implements OnInit {
         this.notification.success('Todo deleted successfully!');
         this.loadTodos();
       },
-      error: () => this.notification.error('Failed to delete todo.')
+      error: () => undefined
     });
   }
 

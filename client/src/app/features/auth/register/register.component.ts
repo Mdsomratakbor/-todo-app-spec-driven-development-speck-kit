@@ -60,8 +60,11 @@ import { NotificationService } from '../../../shared/services/notification.servi
     .full-width { width: 100%; }
     mat-card-content { display: flex; flex-direction: column; gap: 8px; }
     mat-card-actions { justify-content: center; }
-    .btn-spinner { animation: spin 1s linear infinite; display: inline-flex; vertical-align: middle; margin-right: 4px; }
-    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .btn-spinner { display: inline-flex; vertical-align: middle; margin-right: 4px; }
+    @media (prefers-reduced-motion: no-preference) {
+      .btn-spinner { animation: spin 1s linear infinite; }
+      @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    }
   `,
 })
 export class RegisterComponent {

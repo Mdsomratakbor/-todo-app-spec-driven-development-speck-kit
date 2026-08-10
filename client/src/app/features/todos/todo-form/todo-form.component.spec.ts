@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NoopAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideNativeDateAdapter } from '@angular/material/core';
 import { TodoFormComponent } from './todo-form.component';
 
 describe('TodoFormComponent', () => {
@@ -9,8 +10,8 @@ describe('TodoFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TodoFormComponent, NoopAnimations],
-      providers: [provideHttpClient()],
+      imports: [TodoFormComponent],
+      providers: [provideHttpClient(), provideHttpClientTesting(), provideNativeDateAdapter()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TodoFormComponent);
@@ -23,7 +24,7 @@ describe('TodoFormComponent', () => {
   });
 
   it('should emit save with form values on submit', () => {
-    const saveSpy = spyOn(component.save, 'emit');
+    const saveSpy = vi.spyOn(component.save, 'emit');
     component.form.patchValue({ title: 'Buy groceries', priorityId: 2, description: 'Milk, eggs' });
     component.onSubmit();
     expect(saveSpy).toHaveBeenCalledWith({
@@ -36,14 +37,14 @@ describe('TodoFormComponent', () => {
   });
 
   it('should not emit save when form is invalid', () => {
-    const saveSpy = spyOn(component.save, 'emit');
+    const saveSpy = vi.spyOn(component.save, 'emit');
     component.form.patchValue({ title: '' });
     component.onSubmit();
     expect(saveSpy).not.toHaveBeenCalled();
   });
 
   it('should emit cancel', () => {
-    const cancelSpy = spyOn(component.cancel, 'emit');
+    const cancelSpy = vi.spyOn(component.cancel, 'emit');
     component.cancel.emit();
     expect(cancelSpy).toHaveBeenCalled();
   });
@@ -57,8 +58,11 @@ describe('TodoFormComponent', () => {
       status: { id: 1, name: 'Pending', color: '#95A5A6' },
       category: { id: 'cat-1', name: 'Work', color: '#3498DB', todoCount: 5 },
       createdAt: '2026-01-01T00:00:00Z',
-      updatedAt: null,
+      updatedAt: undefined,
     };
+    fixture.destroy();
+    fixture = TestBed.createComponent(TodoFormComponent);
+    component = fixture.componentInstance;
     fixture.componentRef.setInput('todo', todo);
     fixture.detectChanges();
     expect(component.form.value.title).toBe('Existing Todo');

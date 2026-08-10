@@ -12,23 +12,34 @@ const errorMessages: Record<number, string> = {
   500: 'An unexpected error occurred. Please try again later.',
 };
 
+const NETWORK_ERROR_MESSAGE = 'A network error occurred. Please check your connection.';
+const UNEXPECTED_ERROR_MESSAGE = 'An unexpected error occurred. Please try again later.';
+const SESSION_EXPIRED_MESSAGE = 'Your session has expired. Please log in again.';
+
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const notification = inject(NotificationService);
+  const isAuthUrl = req.url.includes('/auth/');
 
   return next(req).pipe(
     catchError((error) => {
       if (error.status === 401) {
+        if (!isAuthUrl) {
+          notification.error(SESSION_EXPIRED_MESSAGE);
+        }
         return throwError(() => error);
       }
 
-      const message =
-        error.error?.detail ||
-        errorMessages[error.status] ||
-        (error.status === 0
-          ? 'A network error occurred. Please check your connection.'
-          : 'An unexpected error occurred. Please try again later.');
+      if (!isAuthUrl) {
+        const message =
+          error.error?.detail ||
+          errorMessages[error.status] ||
+          (error.status === 0
+            ? NETWORK_ERROR_MESSAGE
+            : UNEXPECTED_ERROR_MESSAGE);
 
-      notification.error(message);
+        notification.error(message);
+      }
+
       return throwError(() => error);
     }),
   );

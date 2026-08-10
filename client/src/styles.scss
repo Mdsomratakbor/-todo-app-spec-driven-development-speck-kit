@@ -70,6 +70,19 @@ body {
   }
 }
 
+/* ── Snackbar Slide-in Animation ────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: no-preference) {
+  .mat-mdc-snack-bar-container {
+    animation: snackbarSlideIn 0.3s ease-out;
+  }
+}
+
+@keyframes snackbarSlideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
+}
+
 /* ── Utility Animations ─────────────────────────────────────────────────── */
 
 @media (prefers-reduced-motion: no-preference) {

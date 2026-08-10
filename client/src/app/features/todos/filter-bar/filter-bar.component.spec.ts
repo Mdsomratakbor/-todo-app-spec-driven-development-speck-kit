@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NoopAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideNativeDateAdapter } from '@angular/material/core';
 import { FilterBarComponent } from './filter-bar.component';
 
 describe('FilterBarComponent', () => {
@@ -9,8 +10,8 @@ describe('FilterBarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FilterBarComponent, NoopAnimations],
-      providers: [provideHttpClient()],
+      imports: [FilterBarComponent],
+      providers: [provideHttpClient(), provideHttpClientTesting(), provideNativeDateAdapter()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(FilterBarComponent);
@@ -23,7 +24,7 @@ describe('FilterBarComponent', () => {
   });
 
   it('should emit filters on apply', () => {
-    const spy = spyOn(component.filtersChanged, 'emit');
+    const spy = vi.spyOn(component.filtersChanged, 'emit');
     component.search = 'test';
     component.statusId = 1;
     component.priorityId = 2;
@@ -42,7 +43,7 @@ describe('FilterBarComponent', () => {
   });
 
   it('should emit empty filters on clear', () => {
-    const spy = spyOn(component.filtersChanged, 'emit');
+    const spy = vi.spyOn(component.filtersChanged, 'emit');
     component.clear();
     expect(component.search).toBe('');
     expect(component.statusId).toBeUndefined();

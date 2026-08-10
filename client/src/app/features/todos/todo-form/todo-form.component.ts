@@ -91,8 +91,11 @@ import { futureDateValidator } from '../../../shared/validators/future-date.vali
     .form-row { display: flex; gap: 1rem; }
     .form-row mat-form-field { flex: 1; }
     .form-actions { display: flex; justify-content: flex-end; gap: 0.5rem; }
-    .btn-spinner { animation: spin 1s linear infinite; display: inline-flex; vertical-align: middle; margin-right: 4px; }
-    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .btn-spinner { display: inline-flex; vertical-align: middle; margin-right: 4px; }
+    @media (prefers-reduced-motion: no-preference) {
+      .btn-spinner { animation: spin 1s linear infinite; }
+      @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    }
   `]
 })
 export class TodoFormComponent implements OnInit {

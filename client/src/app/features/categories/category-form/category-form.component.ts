@@ -50,8 +50,11 @@ import { hexColorValidator } from '../../../shared/validators/hex-color.validato
     .category-form { display: flex; flex-direction: column; gap: 1rem; padding: 1rem 0; }
     .full-width { width: 100%; }
     .form-actions { display: flex; justify-content: flex-end; gap: 0.5rem; }
-    .btn-spinner { animation: spin 1s linear infinite; display: inline-flex; vertical-align: middle; margin-right: 4px; }
-    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .btn-spinner { display: inline-flex; vertical-align: middle; margin-right: 4px; }
+    @media (prefers-reduced-motion: no-preference) {
+      .btn-spinner { animation: spin 1s linear infinite; }
+      @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    }
   `]
 })
 export class CategoryFormComponent implements OnInit {

@@ -1,7 +1,7 @@
 <!-- SPECKIT START -->
 For additional context about technologies to be used, project structure,
 shell commands, and other important information, read the current plan
-at specs/003-basic-auth/plan.md.
+at specs/004-ui-enhancements/plan.md.
 
 ## Session Summary (2026-07-06)
 
@@ -90,4 +90,27 @@ at specs/003-basic-auth/plan.md.
 - Button spinners: `MatIcon` with `fontIcon="sync"` + CSS `spin` animation, shown during `saving()`/`loading()` states
 - Spec at `specs/004-ui-enhancements/` with spec.md, plan.md, tasks.md, checklists/requirements.md
 - Pre-existing test issues (spec files using `NoopAnimations`/`spyOn` from Jasmine) — not caused by this feature
+
+## Session Summary (2026-08-03)
+
+### Done
+- **004-ui-enhancements: All 30 tasks complete (Phases 1-7)** — full implementation via `/speckit.implement`
+  - US1 Toasts: severity classes + Material Icons, `snackbarSlideIn` animation, per-severity durations (success 4s/warning 6s/error 8s)
+  - US2 Error handling: `errorInterceptor` with status map, `/auth/` suppression, 401 session-expired toast; duplicate component error toasts removed from todo-list/todo-detail/category-list; profile retains own toasts (`/auth/` URLs)
+  - US3 Route transitions: `route.animations.ts` fadeSlideIn, applied in app.ts/app.html
+  - US4 Card hover: todo-card + category-card lift/shadow
+  - US5 Button spinners: login, register, todo-form, category-form
+  - Phase 7: `ng build` OK, **40/40 unit tests passing**, AGENTS.md updated
+- **Test infra migration: Jasmine → Vitest** (project uses `@angular/build:unit-test` + `vitest/globals`, no karma.conf.js)
+  - Fixed 6 pre-existing specs: removed `NoopAnimations` (not exported in Angular 21), `spyOn` → `vi.spyOn`, `toBeTrue/toBeFalse` → `toBe(true/false)`, `null` → `undefined` model fields
+  - Added DI providers: `provideNativeDateAdapter()` (MatDatepicker), `provideAnimations()` (app.spec `@routeAnimation`), `provideHttpClientTesting()`, `provideRouter([])`
+  - Fixed setInput-timing bug in patch-value tests (recreate fixture before setInput so ngOnInit runs with input set)
+
+### Key Context
+- Vitest globals configured in `client/tsconfig.spec.json`; `ng test` runs Vitest not Karma
+- `provideNativeDateAdapter()` needed for any spec rendering `MatDatepickerModule` (filter-bar, todo-form, todo-list)
+- `NoopAnimations` removed from `@angular/platform-browser/animations` in Angular 21 — use `provideAnimations()`/`provideNoopAnimations()` instead
+- app.spec must query `.app-title` (text 'TodoApp'), not `h1` ('Hello, client' was old scaffold)
+- TodoItem/Category model fields are optional (`undefined`), never `null`
+- `ng build` warnings are pre-existing/non-fatal: NG8011 controlFlowPreventingContentProjection (btn-spinner @if), NG8113 unused AsyncPipe/MatButton, bundle budget 500kB exceeded (~558kB)
 <!-- SPECKIT END -->

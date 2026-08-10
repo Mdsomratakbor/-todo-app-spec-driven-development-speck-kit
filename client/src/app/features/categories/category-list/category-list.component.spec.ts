@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NoopAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { CategoryListComponent } from './category-list.component';
@@ -10,7 +9,7 @@ describe('CategoryListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CategoryListComponent, NoopAnimations],
+      imports: [CategoryListComponent],
       providers: [
         provideHttpClient(),
         provideHttpClientTesting(),
@@ -28,7 +27,7 @@ describe('CategoryListComponent', () => {
 
   it('should show create form', () => {
     component.showCreateForm();
-    expect(component.creating).toBeTrue();
+    expect(component.creating).toBe(true);
     expect(component.editingCategory).toBeNull();
   });
 
@@ -36,7 +35,7 @@ describe('CategoryListComponent', () => {
     const category = { id: '1', name: 'Work', color: '#3498DB', todoCount: 3 };
     component.startEdit(category);
     expect(component.editingCategory).toEqual(category);
-    expect(component.creating).toBeFalse();
+    expect(component.creating).toBe(false);
   });
 
   it('should cancel edit', () => {

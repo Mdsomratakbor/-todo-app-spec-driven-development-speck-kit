@@ -82,7 +82,6 @@ export class CategoryListComponent implements OnInit {
         this.loading.set(false);
       },
       error: () => {
-        this.notification.error('Failed to load categories.');
         this.loading.set(false);
       }
     });
@@ -100,7 +99,7 @@ export class CategoryListComponent implements OnInit {
         this.creating = false;
         this.loadCategories();
       },
-      error: () => this.notification.error('Failed to create category.')
+      error: () => undefined
     });
   }
 
@@ -121,7 +120,7 @@ export class CategoryListComponent implements OnInit {
         this.editingCategory = null;
         this.loadCategories();
       },
-      error: () => this.notification.error('Failed to update category.')
+      error: () => undefined
     });
   }
 
@@ -150,7 +149,7 @@ export class CategoryListComponent implements OnInit {
         this.notification.success('Category deleted successfully!');
         this.loadCategories();
       },
-      error: () => this.notification.error('Failed to delete category.')
+      error: () => undefined
     });
   }
 }
