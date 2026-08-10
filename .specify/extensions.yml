@@ -22,6 +22,14 @@ hooks:
     prompt: Commit specification changes?
     description: Auto-commit after specification
     condition: null
+  - extension: speckit
+    command: speckit.gates
+    enabled: true
+    optional: false
+    priority: 10
+    prompt: Generate quality gates checklist?
+    description: Generate quality-gates.md checklist for the feature
+    condition: null
   after_plan:
   - extension: agent-context
     command: speckit.agent-context.update
