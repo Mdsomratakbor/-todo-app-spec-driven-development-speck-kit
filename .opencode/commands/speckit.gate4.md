@@ -8,9 +8,24 @@ description: Gate 4 — Validate deployment readiness: documentation, traceabili
 $ARGUMENTS
 ```
 
-## Purpose
+## Gate Definition
 
-Gate 4 validates **deployment readiness** — ensuring the feature is fully documented, traceable from requirement to code, and meets all release criteria before production deployment. Run before marking a feature complete or opening a PR.
+| Attribute | Value |
+|-----------|-------|
+| **Gate ID** | GATE-004 |
+| **Purpose** | Validate deployment readiness — fully documented, traceable from requirement to code, meets release criteria |
+| **Reviewer Role** | Technical Lead / Project Manager (or AI acting on their behalf) |
+| **Required Before** | Production deployment, PR merge to main |
+| **SLA / Timeline** | < 5 minutes automated review; < 1 hour for human sign-off |
+| **Exit Criteria** | All 5 criteria below pass; no open CRITICAL/HIGH issues; all checklist items in FEATURE_DIR/checklists/ marked `[X]`; Definition of Done satisfied per constitution §Delivery Standards |
+| **Constitution References** | §VI.B (Traceability Rules), §Delivery Standards (Definition of Done, Testing Strategy), §Governance (Compliance Review) |
+| **Artifact Checklist** | Feature fully implemented (all tasks `[X]`), all prior gates (1-3) pass, traceability chain complete (requirement → scenario → task → code → test), documentation updated (README, API docs, env setup), deployment process documented, migration scripts reversible, rollback strategy defined, configuration externalized, checklist items complete |
+
+**Failure Path**: If Gate 4 fails, the specific gap must be closed and Gate 4 re-run. Deployment is blocked until Gate 4 passes. Production release cannot proceed without passing Gate 4.
+
+**Waiver Process**: Gate 4 waivers require documented acceptance from Technical Lead and Project Manager. Documentation gaps may be waived for internal releases. Traceability gaps cannot be waived.
+
+**Re-review Rules**: Full Gate 4 re-review required before every production deployment. If the feature branch is rebased or merged from main, Gate 4 must be re-run.
 
 ## Operating Constraints
 
@@ -50,9 +65,15 @@ Read from CONSTITUTION: Delivery Standards, Principle VI.B (Traceability Rules)
 
 #### 3b. Traceability Chain Complete
 
+**Alignment with Constitution §VI.B**: The traceability chain must follow the exact mapping defined in the constitution:
+```
+Requirement ID (FR, NFR, BR) → Behaviour Scenario (BH-ID) → Constraint (C-ID) → Task (T-ID) → Code (file paths) → Test (test names)
+```
+
 - For each FR-### in spec: can you trace to a behaviour scenario → plan component → task → code → test?
 - Is the traceability matrix in plan.md complete and accurate?
 - Does every task in tasks.md map to a requirement or plan decision?
+- Does the traceability chain match the constitution's required format (Principle VI.B)?
 
 #### 3c. Documentation Completeness
 
@@ -94,9 +115,16 @@ Output:
           (or ❌ FAIL — N/M criteria failing)
 ```
 
+### 5. Failure Handling
+
+If any criterion fails:
+1. Specific gap location and suggested remediation are provided
+2. Re-run `/speckit.gate4` after fixes
+3. Escalate to Technical Lead and/or Project Manager for sign-off disputes
+
 If `$ARGUMENTS` contains `--fix` or `--repair`, prompt for each FAIL item before editing.
 
-### 5. Next Actions
+### 6. Next Actions
 
 On ✅ PASS:
 - "Feature is deployment-ready. Recommended next step: create PR / merge to main."

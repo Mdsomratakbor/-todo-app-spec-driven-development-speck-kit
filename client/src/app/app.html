@@ -1,0 +1,20 @@
+<mat-toolbar color="primary" class="app-toolbar">
+  <a routerLink="/" class="app-title">{{ title() }}</a>
+  <span class="spacer"></span>
+  @if (authService.isAuthenticated) {
+    <a mat-button routerLink="/profile">
+      <mat-icon>person</mat-icon>
+      Profile
+    </a>
+    <button mat-button (click)="authService.signOut()">
+      <mat-icon>logout</mat-icon>
+      Logout
+    </button>
+  } @else {
+    <a mat-button routerLink="/login">Login</a>
+    <a mat-button routerLink="/register">Register</a>
+  }
+</mat-toolbar>
+<div [@routeAnimation]="getRouteAnimation()">
+  <router-outlet />
+</div>

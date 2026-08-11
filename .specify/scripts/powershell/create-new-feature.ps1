@@ -9,6 +9,7 @@ param(
     [Parameter()]
     [long]$Number = 0,
     [switch]$Timestamp,
+    [switch]$Random,
     [switch]$Help,
     [Parameter(Position = 0, ValueFromRemainingArguments = $true)]
     [string[]]$FeatureDescription
@@ -17,7 +18,7 @@ $ErrorActionPreference = 'Stop'
 
 # Show help if requested
 if ($Help) {
-    Write-Host "Usage: ./create-new-feature.ps1 [-Json] [-DryRun] [-AllowExistingBranch] [-ShortName <name>] [-Number N] [-Timestamp] <feature description>"
+    Write-Host "Usage: ./create-new-feature.ps1 [-Json] [-DryRun] [-AllowExistingBranch] [-ShortName <name>] [-Number N] [-Timestamp] [-Random] <feature description>"
     Write-Host ""
     Write-Host "Options:"
     Write-Host "  -Json               Output in JSON format"
@@ -26,12 +27,14 @@ if ($Help) {
     Write-Host "  -ShortName <name>   Provide a custom short name (2-4 words) for the feature"
     Write-Host "  -Number N           Specify branch number manually (overrides auto-detection)"
     Write-Host "  -Timestamp          Use timestamp prefix (YYYYMMDD-HHMMSS) instead of sequential numbering"
+    Write-Host "  -Random             Use a random 3-digit prefix instead of sequential numbering"
     Write-Host "  -Help               Show this help message"
     Write-Host ""
     Write-Host "Examples:"
     Write-Host "  ./create-new-feature.ps1 'Add user authentication system' -ShortName 'user-auth'"
     Write-Host "  ./create-new-feature.ps1 'Implement OAuth2 integration for API'"
     Write-Host "  ./create-new-feature.ps1 -Timestamp -ShortName 'user-auth' 'Add user authentication'"
+    Write-Host "  ./create-new-feature.ps1 -Random -ShortName 'user-auth' 'Add user authentication'"
     exit 0
 }
 
@@ -145,9 +148,50 @@ if ($Timestamp -and $Number -ne 0) {
     $Number = 0
 }
 
+# Warn if -Random is combined with -Timestamp or -Number
+if ($Random -and $Timestamp) {
+    Write-Warning "[specify] Warning: -Random is ignored when -Timestamp is used"
+    $Random = $false
+}
+if ($Random -and $Number -ne 0) {
+    Write-Warning "[specify] Warning: -Number is ignored when -Random is used"
+    $Number = 0
+}
+
 # Determine branch prefix
 if ($Timestamp) {
     $featureNum = Get-Date -Format 'yyyyMMdd-HHmmss'
+    $branchName = "$featureNum-$branchSuffix"
+} elseif ($Random) {
+    # Collect numbers already in use by existing feature directories
+    $usedNumbers = @{}
+    if (Test-Path $specsDir) {
+        Get-ChildItem -Path $specsDir -Directory | ForEach-Object {
+            if ($_.Name -match '^(\d{3,})-' -and $_.Name -notmatch '^\d{8}-\d{6}-') {
+                [long]$num = 0
+                if ([long]::TryParse($matches[1], [ref]$num)) {
+                    $usedNumbers[$num] = $true
+                }
+            }
+        }
+    }
+
+    # Pick a random 3-digit number (100-999) that doesn't collide with existing dirs
+    $randomNum = 0
+    for ($attempt = 0; $attempt -lt 50; $attempt++) {
+        $candidate = Get-Random -Minimum 100 -Maximum 1000
+        if (-not $usedNumbers.ContainsKey($candidate)) {
+            $randomNum = $candidate
+            break
+        }
+    }
+    if ($randomNum -eq 0) {
+        # Exhausted attempts; fall back to next sequential number
+        Write-Warning "[specify] Warning: could not find a free random number; falling back to sequential"
+        $randomNum = (Get-HighestNumberFromSpecs -SpecsDir $specsDir) + 1
+    }
+
+    $featureNum = ('{0:000}' -f $randomNum)
     $branchName = "$featureNum-$branchSuffix"
 } else {
     # Determine branch number from existing feature directories

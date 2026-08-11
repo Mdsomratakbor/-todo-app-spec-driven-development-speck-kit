@@ -224,7 +224,7 @@ All scenarios are traceable to automated tests. Scenario IDs use `BH-` prefix.
 | **Forbidden Action** | Returning raw exception details, stack traces, or non-standard error bodies in production |
 | **Reason** | Security (information disclosure); client consistency; RFC 7807 compliance |
 | **Consequence** | Global exception handler catches all unhandled exceptions and returns sanitized ProblemDetails |
-| **Responsible Layer** | API (ExceptionMiddleware) |
+| **Responsible Layer** | API (FluentResponse.ApiWrapper ExceptionHandlerMiddleware) |
 | **Verification Method** | Integration test: trigger 500 error → assert ProblemDetails response with no stack trace |
 
 ### API-001: FluentResponse.ApiWrapper Envelope
@@ -403,8 +403,8 @@ api/
 │   │   │   ├── TodosController.cs          # CRUD for todos
 │   │   │   └── CategoriesController.cs     # CRUD for categories
 │   │   ├── Middleware/
-│   │   │   ├── ExceptionHandlingMiddleware.cs  # ProblemDetails
 │   │   │   ├── RequestLoggingMiddleware.cs     # Serilog + correlation ID
+│   │   │   └── RateLimitingMiddleware.cs       # 100 req/min
 │   │   │   └── RateLimitingMiddleware.cs       # 100 req/min
 │   │   ├── Filters/
 │   │   │   └── ValidationFilter.cs
@@ -1032,7 +1032,7 @@ Category Management
 | Risk ID | Category | Description | Priority | Mitigation |
 |---------|----------|-------------|----------|------------|
 | R-001 | Technical | Cartographer.Mapper may not support complex mapping scenarios (e.g., nested response objects, custom type converters) | Medium | Verify mapping capabilities during setup spike; fall back to AutoMapper if Cartographer.Mapper proves insufficient |
-| R-002 | Technical | FluentResponse.ApiWrapper envelope may conflict with ProblemDetails middleware response format | Medium | Integration test both paths; configure FluentResponse.ApiWrapper to pass through ProblemDetails responses unmodified |
+| R-002 | Technical | FluentResponse.ApiWrapper envelope may conflict with ProblemDetails middleware response format | Resolved | FluentResponse.ApiWrapper provides both the response envelope and the exception handler — no conflict by design. Verified by integration tests |
 | R-003 | Technical | PostgreSQL full-text search (ILike) performance may degrade at 10k+ todos | Low | Add composite index on (Title, Description); consider trigram index (pg_trgm) if needed |
 | R-004 | Security | JWT token validation configuration errors could expose endpoints | High | Integration test: verify 401 for missing/invalid/expired tokens; validate audience, issuer, signing key |
 | R-005 | Performance | Without caching, category list is fetched on every todo form open | Low | Add 5-minute in-memory cache on category list endpoint |

@@ -1,0 +1,106 @@
+// Include theming for Angular Material with `mat.theme()`.
+// This Sass mixin will define CSS variables that are used for styling Angular Material
+// components according to the Material 3 design spec.
+// Learn more about theming and how to use it for your application's
+// custom components at https://material.angular.dev/guide/theming
+@use '@angular/material' as mat;
+
+html {
+  height: 100%;
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    )
+  );
+}
+
+body {
+  // Default the application to a light color theme. This can be changed to
+  // `dark` to enable the dark color theme, or to `light dark` to defer to the
+  // user's system settings.
+  color-scheme: light;
+
+  // Set a default background, font and text colors for the application using
+  // Angular Material's system-level CSS variables. Learn more about these
+  // variables at https://material.angular.dev/guide/system-variables
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+
+  // Reset the user agent margin.
+  margin: 0;
+  height: 100%;
+}
+/* ── Snackbar/Toast Styles ──────────────────────────────────────────────── */
+
+.snackbar-success { --mdc-snackbar-container-color: #2e7d32; }
+.snackbar-error   { --mdc-snackbar-container-color: #c62828; }
+.snackbar-warning { --mdc-snackbar-container-color: #e65100; }
+
+.mat-mdc-snack-bar-container {
+  &.snackbar-success, &.snackbar-error, &.snackbar-warning {
+    .mat-mdc-snackbar-surface { padding-left: 8px; }
+    .mdc-snackbar__label { display: flex; align-items: center; gap: 8px; }
+  }
+
+  &.snackbar-success .mdc-snackbar__label::before {
+    content: "check_circle";
+    font-family: "Material Icons";
+    font-size: 20px;
+    font-variation-settings: "FILL" 1;
+  }
+
+  &.snackbar-error .mdc-snackbar__label::before {
+    content: "error";
+    font-family: "Material Icons";
+    font-size: 20px;
+    font-variation-settings: "FILL" 1;
+  }
+
+  &.snackbar-warning .mdc-snackbar__label::before {
+    content: "warning";
+    font-family: "Material Icons";
+    font-size: 20px;
+    font-variation-settings: "FILL" 1;
+  }
+}
+
+/* ── Snackbar Slide-in Animation ────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: no-preference) {
+  .mat-mdc-snack-bar-container {
+    animation: snackbarSlideIn 0.3s ease-out;
+  }
+}
+
+@keyframes snackbarSlideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
+}
+
+/* ── Utility Animations ─────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: no-preference) {
+  .fade-slide-in {
+    animation: fadeSlideIn 0.3s ease-out;
+  }
+}
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Global Scrollbar ───────────────────────────────────────────────────── */
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--mat-sys-surface-variant); }
+::-webkit-scrollbar-thumb {
+  background: var(--mat-sys-outline-variant);
+  border-radius: 4px;
+}
