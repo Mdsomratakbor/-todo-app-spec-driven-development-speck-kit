@@ -20,8 +20,12 @@ import { Category } from '../../../shared/models/category.model';
         <button mat-icon-button (click)="edit.emit(category())" attr.aria-label="Edit {{ category().name }}">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button (click)="delete.emit(category().id)" attr.aria-label="Delete {{ category().name }}">
-          <mat-icon>delete</mat-icon>
+        <button mat-icon-button (click)="delete.emit(category().id)" attr.aria-label="Delete {{ category().name }}" [disabled]="deleting()">
+          @if (deleting()) {
+            <mat-icon class="btn-spinner" fontIcon="sync" />
+          } @else {
+            <mat-icon>delete</mat-icon>
+          }
         </button>
       </mat-card-actions>
     </mat-card>
@@ -36,6 +40,7 @@ import { Category } from '../../../shared/models/category.model';
 })
 export class CategoryCardComponent {
   readonly category = input.required<Category>();
+  readonly deleting = input(false);
   readonly edit = output<Category>();
   readonly delete = output<string>();
 }

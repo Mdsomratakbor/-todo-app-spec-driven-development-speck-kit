@@ -6,8 +6,12 @@
       <mat-icon>person</mat-icon>
       Profile
     </a>
-    <button mat-button (click)="authService.signOut()">
-      <mat-icon>logout</mat-icon>
+    <button mat-button (click)="onLogout()" [disabled]="loggingOut()">
+      @if (loggingOut()) {
+        <mat-icon class="btn-spinner" fontIcon="sync" />
+      } @else {
+        <mat-icon>logout</mat-icon>
+      }
       Logout
     </button>
   } @else {

@@ -1,4 +1,4 @@
-import { Component, output, signal, inject, OnInit } from '@angular/core';
+import { Component, output, signal, inject, OnInit, input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatSelect, MatOption } from '@angular/material/select';
@@ -75,12 +75,12 @@ export interface TodoFilters {
         <mat-datepicker #toPicker />
       </mat-form-field>
 
-      <button mat-raised-button color="primary" (click)="apply()" aria-label="Apply filters">
+      <button mat-raised-button color="primary" (click)="apply()" aria-label="Apply filters" [disabled]="disabled()">
         <mat-icon>search</mat-icon>
         Apply
       </button>
 
-      <button mat-button (click)="clear()" aria-label="Clear filters">
+      <button mat-button (click)="clear()" aria-label="Clear filters" [disabled]="disabled()">
         <mat-icon>clear</mat-icon>
         Clear
       </button>
@@ -95,6 +95,7 @@ export class FilterBarComponent implements OnInit {
   private readonly todoService = inject(TodoService);
 
   readonly filtersChanged = output<TodoFilters>();
+  readonly disabled = input(false);
 
   readonly statuses = signal<Status[]>([]);
   readonly priorities = signal<Priority[]>([]);

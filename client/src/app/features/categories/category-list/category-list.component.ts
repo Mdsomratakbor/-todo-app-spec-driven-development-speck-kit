@@ -6,14 +6,14 @@ import { NotificationService } from '../../../shared/services/notification.servi
 import { Category } from '../../../shared/models/category.model';
 import { CategoryCardComponent } from '../category-card/category-card.component';
 import { CategoryFormComponent } from '../category-form/category-form.component';
-import { LoadingSpinnerComponent } from '../../../shared/components/loading-spinner/loading-spinner.component';
+import { SkeletonComponent } from '../../../shared/components/loading/skeleton.component';
 import { EmptyStateComponent } from '../../../shared/components/empty-state/empty-state.component';
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-category-list',
   standalone: true,
-  imports: [MatButton, CategoryCardComponent, CategoryFormComponent, LoadingSpinnerComponent, EmptyStateComponent],
+  imports: [MatButton, CategoryCardComponent, CategoryFormComponent, SkeletonComponent, EmptyStateComponent],
   template: `
     <div class="category-list-container" role="region" aria-label="Category list">
       <div class="header">
@@ -31,7 +31,7 @@ import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialo
       }
 
       @if (loading()) {
-        <app-loading-spinner message="Loading categories..." />
+        <app-skeleton variant="category-list" label="Loading categories..." />
       } @else if (categories().length === 0) {
         <app-empty-state
           icon="folder"
@@ -45,6 +45,7 @@ import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialo
           @for (category of categories(); track category.id) {
             <app-category-card
               [category]="category"
+              [deleting]="deletingId() === category.id"
               (edit)="startEdit($event)"
               (delete)="confirmDelete($event)"
             />
@@ -66,6 +67,7 @@ export class CategoryListComponent implements OnInit {
 
   readonly categories = signal<Category[]>([]);
   readonly loading = signal(false);
+  readonly deletingId = signal<string | null>(null);
 
   creating = false;
   editingCategory: Category | null = null;
@@ -144,12 +146,16 @@ export class CategoryListComponent implements OnInit {
   }
 
   private deleteCategory(id: string): void {
+    this.deletingId.set(id);
     this.categoryService.delete(id).subscribe({
       next: () => {
+        this.deletingId.set(null);
         this.notification.success('Category deleted successfully!');
         this.loadCategories();
       },
-      error: () => undefined
+      error: () => {
+        this.deletingId.set(null);
+      }
     });
   }
 }

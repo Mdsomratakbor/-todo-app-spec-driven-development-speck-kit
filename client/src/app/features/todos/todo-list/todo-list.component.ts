@@ -9,14 +9,14 @@ import { TodoItem, CreateTodoRequest, UpdateTodoRequest } from '../../../shared/
 import { TodoCardComponent } from '../todo-card/todo-card.component';
 import { TodoFormComponent } from '../todo-form/todo-form.component';
 import { FilterBarComponent, TodoFilters } from '../filter-bar/filter-bar.component';
-import { LoadingSpinnerComponent } from '../../../shared/components/loading-spinner/loading-spinner.component';
 import { EmptyStateComponent } from '../../../shared/components/empty-state/empty-state.component';
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
+import { SkeletonComponent } from '../../../shared/components/loading/skeleton.component';
 
 @Component({
   selector: 'app-todo-list',
   standalone: true,
-  imports: [AsyncPipe, MatPaginator, MatButton, TodoCardComponent, TodoFormComponent, FilterBarComponent, LoadingSpinnerComponent, EmptyStateComponent],
+  imports: [AsyncPipe, MatPaginator, MatButton, TodoCardComponent, TodoFormComponent, FilterBarComponent, SkeletonComponent, EmptyStateComponent],
   template: `
     <div class="todo-list-container" role="region" aria-label="Todo list">
       <div class="header">
@@ -26,7 +26,7 @@ import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialo
         </button>
       </div>
 
-      <app-filter-bar (filtersChanged)="onFiltersChanged($event)" /> 
+      <app-filter-bar [disabled]="loading()" (filtersChanged)="onFiltersChanged($event)" /> 
 
       @if (editingTodo) {
         <app-todo-form [todo]="editingTodo" (save)="onSave($event)" (cancel)="cancelEdit()" />
@@ -37,7 +37,7 @@ import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialo
       }
 
       @if (loading()) {
-        <app-loading-spinner [skeleton]="true" message="Loading todos..." />
+        <app-skeleton variant="todo-list" label="Loading todos..." />
       } @else if (todos().length === 0) {
         <app-empty-state
           icon="checklist"
@@ -51,6 +51,7 @@ import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialo
           @for (todo of todos(); track todo.id) {
             <app-todo-card
               [todo]="todo"
+              [deleting]="deletingId() === todo.id"
               (edit)="startEdit($event)"
               (delete)="confirmDelete($event)"
             />
@@ -90,6 +91,7 @@ export class TodoListComponent implements OnInit {
   readonly totalCount = signal(0);
   readonly page = signal(1);
   readonly pageSize = signal(20);
+  readonly deletingId = signal<string | null>(null);
 
   filters: TodoFilters = {};
 
@@ -169,12 +171,16 @@ export class TodoListComponent implements OnInit {
   }
 
   private deleteTodo(id: string): void {
+    this.deletingId.set(id);
     this.todoService.delete(id).subscribe({
       next: () => {
+        this.deletingId.set(null);
         this.notification.success('Todo deleted successfully!');
         this.loadTodos();
       },
-      error: () => undefined
+      error: () => {
+        this.deletingId.set(null);
+      }
     });
   }
 

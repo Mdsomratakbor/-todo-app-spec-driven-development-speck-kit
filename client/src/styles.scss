@@ -96,6 +96,25 @@ body {
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* ── Button Spinner (busy state) ───────────────────────────────────────── */
+
+.btn-spinner {
+  display: inline-flex;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .btn-spinner {
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+}
+
 /* ── Global Scrollbar ───────────────────────────────────────────────────── */
 
 ::-webkit-scrollbar { width: 8px; }

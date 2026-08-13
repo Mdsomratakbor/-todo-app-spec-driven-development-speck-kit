@@ -42,8 +42,12 @@ import { TodoItem } from '../../../shared/models/todo.model';
         <button mat-icon-button (click)="edit.emit(todo())" attr.aria-label="Edit {{ todo().title }}">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button (click)="delete.emit(todo().id)" attr.aria-label="Delete {{ todo().title }}">
-          <mat-icon>delete</mat-icon>
+        <button mat-icon-button (click)="delete.emit(todo().id)" attr.aria-label="Delete {{ todo().title }}" [disabled]="deleting()">
+          @if (deleting()) {
+            <mat-icon class="btn-spinner" fontIcon="sync" />
+          } @else {
+            <mat-icon>delete</mat-icon>
+          }
         </button>
       </mat-card-actions>
     </mat-card>
@@ -61,6 +65,7 @@ import { TodoItem } from '../../../shared/models/todo.model';
 })
 export class TodoCardComponent {
   readonly todo = input.required<TodoItem>();
+  readonly deleting = input(false);
   readonly edit = output<TodoItem>();
   readonly delete = output<string>();
 

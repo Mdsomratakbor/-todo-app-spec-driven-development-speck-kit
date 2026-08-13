@@ -5,11 +5,12 @@ import { MatButton } from '@angular/material/button';
 import { AuthService } from '../../../shared/services/auth.service';
 import { NotificationService } from '../../../shared/services/notification.service';
 import { UserProfile } from '../../../shared/models/auth.model';
+import { SkeletonComponent } from '../../../shared/components/loading/skeleton.component';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [DatePipe, MatCard, MatCardHeader, MatCardTitle, MatCardContent, MatCardActions, MatButton],
+  imports: [DatePipe, MatCard, MatCardHeader, MatCardTitle, MatCardContent, MatCardActions, MatButton, SkeletonComponent],
   template: `
     <div class="profile-container">
       <mat-card class="profile-card">
@@ -18,7 +19,7 @@ import { UserProfile } from '../../../shared/models/auth.model';
         </mat-card-header>
         <mat-card-content>
           @if (loading()) {
-            <p>Loading profile...</p>
+            <app-skeleton variant="profile" label="Loading profile..." />
           } @else if (profile()) {
             <div class="profile-field">
               <strong>Email:</strong> {{ profile()!.email }}
@@ -32,7 +33,12 @@ import { UserProfile } from '../../../shared/models/auth.model';
           }
         </mat-card-content>
         <mat-card-actions>
-          <button mat-raised-button color="warn" (click)="onLogout()">Logout</button>
+          <button mat-raised-button color="warn" (click)="onLogout()" [disabled]="loggingOut()">
+            @if (loggingOut()) {
+              <mat-icon class="btn-spinner" fontIcon="sync" />
+            }
+            Logout
+          </button>
         </mat-card-actions>
       </mat-card>
     </div>
@@ -50,6 +56,7 @@ export class ProfileComponent implements OnInit {
 
   profile = signal<UserProfile | null>(null);
   loading = signal(true);
+  loggingOut = signal(false);
 
   ngOnInit(): void {
     this.authService.getProfile().subscribe({
@@ -65,8 +72,13 @@ export class ProfileComponent implements OnInit {
   }
 
   onLogout(): void {
+    if (this.loggingOut()) return;
+    this.loggingOut.set(true);
     this.authService.logout().subscribe({
-      error: () => this.notification.error('Logout failed.'),
+      error: () => {
+        this.loggingOut.set(false);
+        this.notification.error('Logout failed.');
+      },
     });
   }
 }

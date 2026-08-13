@@ -7,12 +7,12 @@ import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { TodoService } from '../../../shared/services/todo.service';
 import { TodoItem } from '../../../shared/models/todo.model';
-import { LoadingSpinnerComponent } from '../../../shared/components/loading-spinner/loading-spinner.component';
+import { SkeletonComponent } from '../../../shared/components/loading/skeleton.component';
 
 @Component({
   selector: 'app-todo-detail',
   standalone: true,
-  imports: [DatePipe, MatCard, MatCardHeader, MatCardTitle, MatCardSubtitle, MatCardContent, MatChip, MatButton, MatIcon, LoadingSpinnerComponent],
+  imports: [DatePipe, MatCard, MatCardHeader, MatCardTitle, MatCardSubtitle, MatCardContent, MatChip, MatButton, MatIcon, SkeletonComponent],
   template: `
     <div class="detail-container">
       <button mat-icon-button (click)="goBack()" aria-label="Back">
@@ -20,7 +20,7 @@ import { LoadingSpinnerComponent } from '../../../shared/components/loading-spin
       </button>
 
       @if (loading()) {
-        <app-loading-spinner message="Loading todo..." role="status" aria-live="polite" />
+        <app-skeleton variant="detail" label="Loading todo..." />
       } @else if (todo()) {
         <mat-card>
           <mat-card-header>

@@ -16,6 +16,13 @@ import { routeAnimation } from './shared/animations/route.animations';
 export class App {
   protected readonly title = signal('TodoApp');
   protected readonly authService = inject(AuthService);
+  protected readonly loggingOut = signal(false);
+
+  protected onLogout(): void {
+    if (this.loggingOut()) return;
+    this.loggingOut.set(true);
+    this.authService.signOut();
+  }
 
   protected getRouteAnimation(): number {
     return 1;
