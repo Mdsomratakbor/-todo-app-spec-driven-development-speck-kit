@@ -113,4 +113,29 @@ at specs/005-add-loading-indicators/plan.md.
 - app.spec must query `.app-title` (text 'TodoApp'), not `h1` ('Hello, client' was old scaffold)
 - TodoItem/Category model fields are optional (`undefined`), never `null`
 - `ng build` warnings are pre-existing/non-fatal: NG8011 controlFlowPreventingContentProjection (btn-spinner @if), NG8113 unused AsyncPipe/MatButton, bundle budget 500kB exceeded (~558kB)
+
+## Session Summary (2026-08-20)
+
+### Done
+- **005-loading-indicators: All 33 tasks complete (Phases 1-6)**
+  - Phase 1 (Setup): T001-T002 — baseline verified (build OK, 40/40 tests)
+  - Phase 2 (US1 Skeleton): T003-T008 — `SkeletonComponent` (`app-skeleton`) with 5 variants (`todo-list`, `category-list`, `detail`, `profile`, `rows`), `aria-live` label, shimmer gated by `prefers-reduced-motion`; applied to all 4 data screens
+  - Phase 3 (US2 Busy States): T010-T016 — global `.btn-spinner`+`spin` in `styles.scss`, `deletingId` busy state in todo-card/category-card, toolbar/profile logout busy, filter-bar `[disabled]`, error-state retry busy
+  - Phase 4 (US4 Flicker-Free & A11y): T018-T022 — `withLoadingState` operator (deferMs=200, minMs=300), wired into all data screens, `ErrorStateComponent` with retry, `aria-busy` on containers, reduced-motion audit
+  - Phase 5 (US3 Background Refresh): T024-T027 — `loading()`/`refreshing()` split (skeleton for no-data, slim `MatProgressBar` for refresh), `takeUntilDestroyed()` on all subscriptions, error+retry for failed first loads
+  - Phase 6 (Polish): T029-T033 — 33 new unit tests (skeleton, error-state, operator), `ng build` OK, **73/73 unit tests passing**, AGENTS.md updated
+  - Fixed missing `MatIcon` import in `profile.component.ts` (build error)
+  - Removed unused `AsyncPipe` import from `todo-list.component.ts`
+
+### Key Context
+- `SkeletonComponent` at `shared/components/loading/skeleton.component.ts` — 5 variants, Material CSS vars, shimmer animation
+- `ErrorStateComponent` at `shared/components/loading/error-state.component.ts` — icon + message + retry button, `role="status"`
+- `withLoadingState` operator at `shared/utils/loading.operator.ts` — drives `WritableSignal<boolean>`, defer 200ms / hold 300ms
+- Data screens (todo-list, category-list, todo-detail, profile) use `withLoadingState` + `takeUntilDestroyed()`
+- `loading()` = no data yet → skeleton; `refreshing()` = data present → slim `MatProgressBar` + content preserved
+- `aria-busy` on all data containers; `role="status"` + `aria-live="polite"` on all loaders
+- Global `.btn-spinner` + `spin` keyframes in `styles.scss`, gated by `prefers-reduced-motion: no-preference`
+- `deletingId` signal for delete busy states in todo-list/todo-card and category-list/category-card
+- Test files: `skeleton.component.spec.ts`, `error-state.component.spec.ts`, `loading.operator.spec.ts`
+- All animations gated by `@media (prefers-reduced-motion: no-preference)` — static under reduced-motion
 <!-- SPECKIT END -->

@@ -1,6 +1,7 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
-import { AsyncPipe } from '@angular/common';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatProgressBar } from '@angular/material/progress-bar';
 import { MatButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { TodoService } from '../../../shared/services/todo.service';
@@ -12,13 +13,15 @@ import { FilterBarComponent, TodoFilters } from '../filter-bar/filter-bar.compon
 import { EmptyStateComponent } from '../../../shared/components/empty-state/empty-state.component';
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { SkeletonComponent } from '../../../shared/components/loading/skeleton.component';
+import { ErrorStateComponent } from '../../../shared/components/loading/error-state.component';
+import { withLoadingState } from '../../../shared/utils/loading.operator';
 
 @Component({
   selector: 'app-todo-list',
   standalone: true,
-  imports: [AsyncPipe, MatPaginator, MatButton, TodoCardComponent, TodoFormComponent, FilterBarComponent, SkeletonComponent, EmptyStateComponent],
+  imports: [MatPaginator, MatProgressBar, MatButton, TodoCardComponent, TodoFormComponent, FilterBarComponent, SkeletonComponent, ErrorStateComponent, EmptyStateComponent],
   template: `
-    <div class="todo-list-container" role="region" aria-label="Todo list">
+    <div class="todo-list-container" role="region" aria-label="Todo list" [attr.aria-busy]="loading() || refreshing()">
       <div class="header">
         <h1>Todo List</h1>
         <button mat-raised-button color="primary" (click)="showCreateForm()">
@@ -26,7 +29,7 @@ import { SkeletonComponent } from '../../../shared/components/loading/skeleton.c
         </button>
       </div>
 
-      <app-filter-bar [disabled]="loading()" (filtersChanged)="onFiltersChanged($event)" /> 
+      <app-filter-bar [disabled]="loading() || refreshing()" (filtersChanged)="onFiltersChanged($event)" />
 
       @if (editingTodo) {
         <app-todo-form [todo]="editingTodo" (save)="onSave($event)" (cancel)="cancelEdit()" />
@@ -38,6 +41,8 @@ import { SkeletonComponent } from '../../../shared/components/loading/skeleton.c
 
       @if (loading()) {
         <app-skeleton variant="todo-list" label="Loading todos..." />
+      } @else if (error()) {
+        <app-error-state message="Failed to load todos." (retry)="loadTodos()" />
       } @else if (todos().length === 0) {
         <app-empty-state
           icon="checklist"
@@ -47,6 +52,9 @@ import { SkeletonComponent } from '../../../shared/components/loading/skeleton.c
           (action)="showCreateForm()"
         />
       } @else {
+        @if (refreshing()) {
+          <mat-progress-bar mode="indeterminate" class="refresh-bar" />
+        }
         <div class="todo-grid">
           @for (todo of todos(); track todo.id) {
             <app-todo-card
@@ -79,15 +87,19 @@ import { SkeletonComponent } from '../../../shared/components/loading/skeleton.c
       from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }
     }
+    .refresh-bar { margin-bottom: 1rem; }
   `]
 })
 export class TodoListComponent implements OnInit {
   private readonly todoService = inject(TodoService);
   private readonly notification = inject(NotificationService);
   private readonly dialog = inject(MatDialog);
+  private readonly destroyRef = inject(DestroyRef);
 
   readonly todos = signal<TodoItem[]>([]);
   readonly loading = signal(false);
+  readonly refreshing = signal(false);
+  readonly error = signal(false);
   readonly totalCount = signal(0);
   readonly page = signal(1);
   readonly pageSize = signal(20);
@@ -103,15 +115,20 @@ export class TodoListComponent implements OnInit {
   }
 
   loadTodos(): void {
-    this.loading.set(true);
-    this.todoService.getList({ page: this.page(), pageSize: this.pageSize(), ...this.filters }).subscribe({
+    this.error.set(false);
+    const hasData = this.todos().length > 0;
+    this.todoService.getList({ page: this.page(), pageSize: this.pageSize(), ...this.filters }).pipe(
+      withLoadingState(hasData ? this.refreshing : this.loading),
+      takeUntilDestroyed(this.destroyRef),
+    ).subscribe({
       next: (res) => {
         this.todos.set(res.data);
         this.totalCount.set(res.totalCount);
-        this.loading.set(false);
       },
       error: () => {
-        this.loading.set(false);
+        if (!hasData) {
+          this.error.set(true);
+        }
       }
     });
   }

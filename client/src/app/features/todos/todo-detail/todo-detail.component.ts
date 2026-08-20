@@ -1,4 +1,5 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { MatCard, MatCardHeader, MatCardTitle, MatCardSubtitle, MatCardContent } from '@angular/material/card';
@@ -8,19 +9,23 @@ import { MatIcon } from '@angular/material/icon';
 import { TodoService } from '../../../shared/services/todo.service';
 import { TodoItem } from '../../../shared/models/todo.model';
 import { SkeletonComponent } from '../../../shared/components/loading/skeleton.component';
+import { ErrorStateComponent } from '../../../shared/components/loading/error-state.component';
+import { withLoadingState } from '../../../shared/utils/loading.operator';
 
 @Component({
   selector: 'app-todo-detail',
   standalone: true,
-  imports: [DatePipe, MatCard, MatCardHeader, MatCardTitle, MatCardSubtitle, MatCardContent, MatChip, MatButton, MatIcon, SkeletonComponent],
+  imports: [DatePipe, MatCard, MatCardHeader, MatCardTitle, MatCardSubtitle, MatCardContent, MatChip, MatButton, MatIcon, SkeletonComponent, ErrorStateComponent],
   template: `
-    <div class="detail-container">
+    <div class="detail-container" [attr.aria-busy]="loading()">
       <button mat-icon-button (click)="goBack()" aria-label="Back">
         <mat-icon>arrow_back</mat-icon>
       </button>
 
       @if (loading()) {
         <app-skeleton variant="detail" label="Loading todo..." />
+      } @else if (error()) {
+        <app-error-state message="Failed to load todo." (retry)="loadTodo()" />
       } @else if (todo()) {
         <mat-card>
           <mat-card-header>
@@ -64,23 +69,32 @@ export class TodoDetailComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly todoService = inject(TodoService);
+  private readonly destroyRef = inject(DestroyRef);
 
   readonly todo = signal<TodoItem | undefined>(undefined);
   readonly loading = signal(true);
+  readonly error = signal(false);
 
   ngOnInit(): void {
+    this.loadTodo();
+  }
+
+  loadTodo(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (!id) {
       this.goBack();
       return;
     }
-    this.todoService.getById(id).subscribe({
+    this.error.set(false);
+    this.todoService.getById(id).pipe(
+      withLoadingState(this.loading),
+      takeUntilDestroyed(this.destroyRef),
+    ).subscribe({
       next: (item) => {
         this.todo.set(item);
-        this.loading.set(false);
       },
       error: () => {
-        this.loading.set(false);
+        this.error.set(true);
       }
     });
   }
